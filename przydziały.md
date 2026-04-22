@@ -1,7 +1,7 @@
-Maciek[hoffne-mc] Lider - > tworzenie projektu na github, stworzenie maszyny wirtualnej
-Gosia[mmatiaszewska-dot] - > zaopatrzenie grupe w pliki maszynyRAM oraz dodanie ich do projekru na github, stworzenie maszyny wirtualnej
-Gabriela[gabrielka-cpu] - > stworzenie maszyny wirtualnej
-Adrian[adrianw1234] - > stworzenie maszyny wirtualnej
+1. Maciek[hoffne-mc] Lider - > tworzenie projektu na github, stworzenie maszyny wirtualnej
+2. Gosia[mmatiaszewska-dot] - > zaopatrzenie grupe w pliki maszynyRAM oraz dodanie ich do projekru na github, stworzenie maszyny wirtualnej
+3. Gabriela[gabrielka-cpu] - > stworzenie maszyny wirtualnej
+4. Adrian[adrianw1234] - > stworzenie maszyny wirtualnej
 
 
 Grupa - > stworzyć maszynę wirtualną windows i zainstalować na niej Ram Machine
