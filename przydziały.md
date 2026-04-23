@@ -1,15 +1,42 @@
-1. Maciek[hoffne-mc] Lider - > tworzenie projektu na github
-2. Gosia[mmatiaszewska-dot] - > zaopatrzenie grupe w pliki maszynyRAM oraz dodanie ich do projekru na github
+1. Maciek[hoffne-mc] Lider - >
+zadania dla jednostki:
+-niewykonane:
+-wykonane:
+  -tworzenie projektu na github, 
+  -stworzenie maszyny wirtualnej
+
+2. Gosia[mmatiaszewska-dot] - > 
+zadania dla jednostki:
+-niewykonane:
+-wykonane:
+  -zaopatrzenie grupe w pliki maszynyRAM oraz dodanie ich do projektu na github, 
+  -stworzenie maszyny wirtualnej
+
 3. Gabriela[gabrielka-cpu] - > 
+zadania dla jednostki:
+-niewykonane:
+-wykonane:
+  -stworzenie maszyny wirtualnej
+
 4. Adrian[adrianw1234] - > 
+zadania dla jednostki: 
+-niewykonane:
+-wykonane:
+  -stworzenie maszyny wirtualnej
 
-
-   23.04.2026
-Gosia,Gabi,Ja - > zróbmy dzisiaj html czyli milion <div id="coś"> i tak wrobimy szkielet html, jak się z tym uporamy to zrobimy dzisiaj do tego css a jak nie to na kolejenj
-
+zadania dla grupy
+Grupa - > stworzyć maszynę wirtualną windows i zainstalować na niej Ram Machine
 
 
 RAM MACHINE:
 1. index.html
 2. css.css
 3. maszyna.js
+
+
+
+Instrukcja dl maszymy wirtualnej
+1. Weźcie pliki z Vm czyste i zróbcie dla windws 11
+2. Skopiujcie i stwórzcie powiązany klon
+3. zalogujcie się (Hasło do maszyny wirtualnej: Cekazet2024)
+4. zainstalujcie maszynę
