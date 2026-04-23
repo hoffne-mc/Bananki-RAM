@@ -6,3 +6,10 @@
 
    23.04.2026
 Gosia,Gabi,Ja - > zróbmy dzisiaj html czyli milion <div id="coś"> i tak wrobimy szkielet html, jak się z tym uporamy to zrobimy dzisiaj do tego css a jak nie to na kolejenj
+
+
+
+RAM MACHINE:
+1. index.html
+2. css.css
+3. maszyna.js
