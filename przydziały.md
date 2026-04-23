@@ -25,7 +25,6 @@ zadania dla jednostki:
   -stworzenie maszyny wirtualnej
 
 zadania dla grupy
-Grupa - > stworzyć maszynę wirtualną windows i zainstalować na niej Ram Machine
 
 
 RAM MACHINE:
