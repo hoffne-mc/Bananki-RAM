@@ -1,5 +1,10 @@
 Musi sie dać zapisać oraz odpalic zapisana maszynę 
 
+js: pobranie rozkazu
+dekodowanie rozkaxu
+wykonanie rozkazu
+przesuniecie wskaznika
+
 Ma pamięć
 → numerowane komórki (jak szuflady), np. 0, 1, 2…
 → każda przechowuje liczbę
