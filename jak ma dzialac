@@ -1,0 +1,19 @@
+Musi sie dać zapisać oraz odpalic zapisana maszynę 
+
+Ma pamięć
+→ numerowane komórki (jak szuflady), np. 0, 1, 2…
+→ każda przechowuje liczbę
+Ma rejestr (ACC)
+→ jedna „aktualna liczba”, na której wykonuje operacje
+Ma program (lista instrukcji)
+np.:
+LOAD 1
+ADD 2
+STORE 3
+Wykonuje instrukcje po kolei
+krok po kroku:
+LOAD 1 → bierze liczbę z komórki 1 do ACC
+ADD 2 → dodaje wartość z komórki 2
+STORE 3 → zapisuje wynik do komórki 3
+Może skakać między instrukcjami
+→ np. JUMP (czyli pętle jak w programowaniu)
