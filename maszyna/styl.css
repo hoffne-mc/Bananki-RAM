@@ -273,10 +273,12 @@ tr:hover td {
 
 
 .tabela-programu {
-  width: 100%;
+  width: 98%;
   border-collapse: collapse;
   background-color: #9fb3c1;
   color: #718c9e;
+  margin:10px;
+  margin-left: 30px;
 }
 
 .tabela-programu th {
@@ -307,7 +309,7 @@ td[contenteditable="true"] {
 .tabela-programu select {
   width: 100%;
   background-color: #9fb3c1;
-  color: #cfe3f1;
+  color: #314b5e;
   border: none;
 }
 
@@ -324,6 +326,7 @@ td[contenteditable="true"] {
 
 .kontrolki-programu {
   margin-top: 5px;
+  margin-left: 30px;
 }
 
 .kontrolki-programu button {
