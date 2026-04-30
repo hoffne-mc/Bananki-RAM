@@ -7,7 +7,7 @@ zadania dla jednostki:
 -wykonane:
   -tworzenie projektu na github, 
 
-2. Gosia[mmatiaszewska-dot] - > 
+2. Gosia[mmatiaszewska] - > 
 zadania dla jednostki:
 -niewykonane:
 -wykonane:
