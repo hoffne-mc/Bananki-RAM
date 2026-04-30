@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>RAM Machine 2006</title>
+  <link rel="stylesheet" href="styl.css" />
+</head>
+<body>
+
+  <div class="okno">
+
+    <div class="pasek-tytulu">
+      <span>RAM machine </span>
+      <div class="przyciski-okna">
+        <span>_</span>
+        <span>□</span>
+        <span>✕</span>
+      </div>
+    </div>
+
+    <div class="pasek-narzedzi">
+      <button class="przycisk-narzedzia">📄</button>
+      <button class="przycisk-narzedzia">📂</button>
+      <div class="separator"></div>
+
+      <div class="wrapper">
+      <button class="przycisk-narzedzia">▶</button>
+      <div class="przycisk-narzedzia-tekst">Uruchom program</div>
+      </div>
+
+      <div class="wrapper">
+      <button class="przycisk-narzedzia">⏭</button>
+      <div class="przycisk-narzedzia-tekst">Uruchom program do punktu przerwania</div>
+      </div>  
+
+      <div class="wrapper">
+      <button class="przycisk-narzedzia">⏺</button>
+      <div class="przycisk-narzedzia-tekst">Zakończ program</div>
+      </div>  
+      
+
+      <div class="separator"></div>
+      <button class="przycisk-narzedzia">↩</button>
+      <button class="przycisk-narzedzia">↪</button>
+    </div>
+
+  
+    <div class="glowny-uklad">
+
+      <div class="panel procesor">
+        <div class="naglowek-panelu">PROCESSOR </div>
+        <div class="wiersz-procesora">
+          <span class="etykieta">Instruction:</span>
+          <input class="pole-tekstowe" type="text" readonly />
+        </div>
+        <div class="wiersz-procesora">
+          <span class="etykieta">Argument:</span>
+          <input class="pole-tekstowe" type="text" readonly />
+        </div>
+      </div>
+
+   
+      <div class="panel tasma">
+        <br>
+        <div class="strzalka-glowicy">▼</div>
+        <div class="komorki-tasmy">
+          <button class="przycisk-tasmy">◀◀</button>
+          <button class="przycisk-tasmy">◀</button>
+          <div class="komorka"></div>
+          <div class="komorka"></div>
+          <div class="komorka"></div>
+          <div class="komorka"></div>
+          <div class="komorka"></div>
+          <button class="przycisk-tasmy">▶</button>
+        </div><br>
+        <div class="komorki-tasmy">
+          <button class="przycisk-tasmy">◀◀</button>
+          <button class="przycisk-tasmy">◀</button>
+          <div class="komorka"></div>
+          <div class="komorka"></div>
+          <div class="komorka"></div>
+          <div class="komorka"></div>
+          <div class="komorka"></div>
+          <button class="przycisk-tasmy">▶</button>
+        </div>
+        <div class="strzalka-glowicy">▲</div>
+        <br>
+      </div>
+
+    
+      <div class="panel pamiec">
+        <div class="naglowek-panelu">MEMORY </div>
+        <div class="przewijalna-tabela">
+          <table id="btt">
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>0</td><td></td></tr>
+              <tr><td>1</td><td></td></tr>
+              <tr><td>2</td><td></td></tr>
+              <tr><td>3</td><td></td></tr>
+              <tr><td>4</td><td></td></tr>
+              <tr><td>5</td><td></td></tr>
+              <tr><td>6</td><td></td></tr>
+              <tr><td>7</td><td></td></tr>
+              <tr><td>8</td><td></td></tr>
+              <tr><td>9</td><td></td></tr>
+              <tr><td>10</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+
+    
+      <div class="panel program">
+        <div class="naglowek-panelu">PROGRAM </div>
+        <div class="przewijalna-tabela">
+                  <table class="tabela-programu">
+                      <thead>
+                        <tr>
+                          <th class="col-ln"></th>
+                          <th class="col-lbl">Label</th>
+                          <th class="col-ins">Instruction</th>
+                          <th class="col-arg">Argument</th>
+                          <th class="col-com">Comment</th>
+                        </tr>
+                      </thead>
+                      <tbody id="program-body">
+                        <tr>
+                          <td class="ln">1.</td>
+                          <td contenteditable="true"></td>
+                          <td>
+                            <select>
+                              <option></option>
+                              <option>add</option>
+                              <option>div</option>
+                              <option>halt</option>
+                              <option>jgtz</option>
+                              <option>jump</option>
+                              <option>jzero</option>
+                              <option>load</option>
+                              <option>mult</option>
+                              <option>read</option>
+                              <option>store</option>
+                              <option>sub</option>
+                              <option>write</option>
+                            </select>
+                          </td>
+                          <td contenteditable="true"></td>
+                          <td contenteditable="true"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                <div class="kontrolki-programu">
+                  <button id="but" onclick="dodajWiersz()">+</button>
+                  <button id="bu" onclick="usunWiersz()">-</button>
+                </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+      <script>
+          function dodajWiersz() {
+            const tbody = document.getElementById("program-body");
+            const rowCount = tbody.rows.length + 1;
+
+            const row = tbody.insertRow();
+
+            row.innerHTML = `
+              <td class="ln">${rowCount}.</td>
+              <td contenteditable="true"></td>
+              <td>
+                <select>
+                  <option></option>
+                  <option>add</option>
+                  <option>div</option>
+                  <option>halt</option>
+                  <option>jgtz</option>
+                  <option>jump</option>
+                  <option>jzero</option>
+                  <option>load</option>
+                  <option>mult</option>
+                  <option>read</option>
+                  <option>store</option>
+                  <option>sub</option>
+                  <option>write</option>
+                </select>
+              </td>
+              <td contenteditable="true"></td>
+              <td contenteditable="true"></td>
+            `;
+          }
+
+          function usunWiersz() {
+            const tbody = document.getElementById("program-body");
+
+            if (tbody.rows.length > 1) {
+              tbody.deleteRow(tbody.rows.length - 1);
+            } else {
+              const row = tbody.rows[0];
+              row.cells[1].innerText = "";
+              row.cells[2].querySelector("select").value = "";
+              row.cells[3].innerText = "";
+              row.cells[4].innerText = "";
+            }
+          }
+
+                  document.addEventListener("click", function(e) {
+            const row = e.target.closest("tr");
+
+            if (!row) return;
+
+            
+            if (row.classList.contains("aktywny")) {
+              row.classList.remove("aktywny");
+            } else {
+             
+              const rows = document.querySelectorAll("#program-body tr");
+              rows.forEach(r => r.classList.remove("aktywny"));
+
+              
+              row.classList.add("aktywny");
+            }
+          });
+      </script>
+</body>
+</html>
