@@ -43,7 +43,7 @@
           <input class="pole-tekstowe" type="text" readonly />
         </div>
         <div class="wiersz-procesora">
-          <span class="etykieta">Argument:</span>
+          <span class="etykieta">PC:</span>
           <input class="pole-tekstowe" type="text" readonly />
         </div>
       </div>
@@ -141,7 +141,15 @@
     </div>
   </div>
       <script>
-          function dodajWiersz() {
+        const INSTRUKCJE = ["", "add", "div", "halt", "jgtz", "jump", "jzero", "load", "mult", "read", "store", "sub", "write"],
+        LICZBA_REJESTROW = 16,
+        LIMIT_KROKOW = 10000;
+        KLUCZ_ZAPISU = "ram-machine-zapis",
+        CZAS_ANIMACJI = 1200,
+        $ = (selector, root = document) => root.querySelector(selector),
+        $$ = (selector, root = document) => [...root.querySelectorAll(selector)],
+        pustaPamiec = () => Array(LICZBA_REJESTROW).fill(null);
+        let pc = 0, inputHead = 0, output = [], memory = pustaPamiec(), running = false, animating = false;
             const tbody = document.getElementById("program-body");
             const rowCount = tbody.rows.length + 1;
 
