@@ -3,6 +3,24 @@ _______________________
 
 1. Maciek[hoffne-mc] Lider - >
 
+ W HTML
+a) Stworzenie:
+  1. panelu PROGRAM z tabelą programu
+  2. kolumn  numer linii, etykieta, instrukcja, argument, komentarz
+  3. przycisków dodawania i usuwania wierszy programu
+  
+
+W CSS
+a) Stworzenie stylów stylów panelu programu
+b) Stworzenie stylów kolumn
+c) Stworzenie aktywnego wiersza programu
+d) Stworzenie kontrolki programu
+W JS
+a) Stworzenie tworzenia i usuwania wierszy
+b) Stworzenie czytania programu
+c) Stworzenie wykonywania instrukcji RAM
+d) Stworzenie odświerzania aktywnej instrukcji
+  
 
 2. Gosia[mmatiaszewska] - > 
 
