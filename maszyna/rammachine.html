@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="styl.css" />
 </head>
 <body>
+  
   <div class="okno">
      <div class="pasek-narzedzi"> 
       <div class="wrapper">
@@ -48,15 +49,23 @@
         </div>
       </div>
       <div class="panel tasma">
-        <br>
-        <div class="strzalka-glowicy">▼</div>
-        <div class="komorki-tasmy">
-          <div class="komorka"></div>
-          <div class="komorka"></div>
-          <div class="komorka"></div>
-          <div class="komorka"></div>
-          <div class="komorka"></div>
-        </div><br>
+        <div class="tasma-blok">
+          <div class="podpis-tasmy">INPUT</div>
+          <div class="wiersz-strzalki">
+            <span id="input-head" class="strzalka-glowicy">â–Ľ</span>
+          </div>
+          <div id="input-cels" class="komorki-tasmy input-edittable"></div>
+          </div>
+          <div class="tasma-blok">
+            <div class="podpis-tasmy">OUTPUT</div>
+            <div class="wiersz-strzalki">
+              <span id="output-cells" class="komorki-tasmy">â–Ľ</span>
+            </div>
+            <div id="output-cells" class="komorki-tasmy"></div>
+          </div>
+          </div>
+          
+        
         <div class="komorki-tasmy">
           <div class="komorka"></div>
           <div class="komorka"></div>
