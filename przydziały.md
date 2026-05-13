@@ -85,3 +85,5 @@ c) Stworzenie adresowania
 d) Stworzenie odświerzenia widoku pamięci
 
 
+git config --global user.name "Twoja Nazwa Użytkownika" 
+git config --global user.email "twoj.email@example.com"
