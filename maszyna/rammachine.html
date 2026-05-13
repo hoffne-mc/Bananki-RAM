@@ -220,6 +220,18 @@
               row.classList.add("aktywny");
             }
           });
+          function przygotujZapis() {
+            return {
+              version: 1,
+              savedAt: newDate().toISOString(),
+              pc,
+              inputHead,
+              output,
+              memory,
+              input: pobierzTasmeWejsciowa(),
+              program: pobierzWierszeProgramu()
+            };
+          }
       </script>
 </body>
 </html>
