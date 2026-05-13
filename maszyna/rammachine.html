@@ -7,59 +7,35 @@
 </head>
 <body>
   <div class="okno">
-
      <div class="pasek-narzedzi"> 
-      
-
       <div class="wrapper">
-      <button class="przycisk-narzedzia">📂</button>
-      <div class="przycisk-narzedzia-tekst">Importuj plik</div>
+      <button class="przycisk-narzedzia" type="button" onclick="zapiszMaszyne()">📂</button>
+      <div class="przycisk-narzedzia-tekst">Zapisz dane maszyny</div>
       </div>
-
-
       <div class="wrapper">
-      <button class="przycisk-narzedzia">📄</button>
-      <div class="przycisk-narzedzia-tekst">Pobierz plik</div>
+      <button class="przycisk-narzedzia" type="button" onclick="wczytajMaszyne()">📄</button>
+      <div class="przycisk-narzedzia-tekst">Wczytaj zapisane dane</div>
       </div>
-
-
+<input id="plik-zapisu" type="file" accept="application/json,.json" onchange="obsluzPlikZapisu(event)" hidden />
       <div class="separator"></div>
-
-
-
       <div class="wrapper">
-      <button class="przycisk-narzedzia">▶</button>
+      <button class="przycisk-narzedzia" type="button" onclick="uruchomProgram()">▶</button>
       <div class="przycisk-narzedzia-tekst">Uruchom program</div>
       </div>
-
       <div class="wrapper">
-      <button class="przycisk-narzedzia">⏭</button>
-      <div class="przycisk-narzedzia-tekst">Zapętlij program</div>
+      <button class="przycisk-narzedzia" type="button" onclick="wykonajKrok()">⏭</button>
+      <div class="przycisk-narzedzia-tekst">Wykonaj jeden krok</div>
       </div>  
-
       <div class="wrapper">
-      <button class="przycisk-narzedzia">⏺</button>
+      <button class="przycisk-narzedzia" type="button" onclick="zatrzymajProgram()">⏺</button>
       <div class="przycisk-narzedzia-tekst">Zakończ program</div>
       </div>  
-      
-      <div class="separator"></div>
-
       <div class="wrapper">
-      <button class="przycisk-narzedzia">↺</button>
-      <div class="przycisk-narzedzia-tekst">Resetuj program</div>
+      <button class="przycisk-narzedzia" type="button" onclick="resetujMaszyne()">↺</button>
+      <div class="przycisk-narzedzia-tekst">Resetuj maszyne</div>
       </div>  
-
-
-      <div class="wrapper">
-      <button class="przycisk-narzedzia">»</button>
-      <div class="przycisk-narzedzia-tekst">Następny krok</div>
-      </div>  
-
     </div>
-
-  
-    <div class="glowny-uklad">
-
+<div class="glowny-uklad">
       <div class="panel procesor">
         <div class="naglowek-panelu">PROCESSOR </div>
         <div class="wiersz-procesora">
@@ -71,9 +47,6 @@
           <input class="pole-tekstowe" type="text" readonly />
         </div>
       </div>
-
-    
-   
       <div class="panel tasma">
         <br>
         <div class="strzalka-glowicy">▼</div>
@@ -94,8 +67,6 @@
         <div class="strzalka-glowicy">▲</div>
         <br>
       </div>
-
-    
       <div class="panel pamiec">
         <div class="naglowek-panelu">MEMORY </div>
         <div class="przewijalna-tabela">
@@ -121,10 +92,7 @@
             </tbody>
           </table>
         </div>
-        
       </div>
-
-    
       <div class="panel program">
         <div class="naglowek-panelu">PROGRAM </div>
         <div class="przewijalna-tabela">
@@ -164,16 +132,13 @@
                         </tr>
                       </tbody>
                     </table>
-
                 <div class="kontrolki-programu">
                   <button id="but" onclick="dodajWiersz()">+</button>
                   <button id="bu" onclick="usunWiersz()">-</button>
                 </div>
         </div>
       </div>
-
     </div>
-
   </div>
       <script>
           function dodajWiersz() {
