@@ -277,14 +277,14 @@
            return;
           } catch (error) {
            if (error.name === "AbortError") {
-              ustawStatus("Anulowano wybĂłr miejsca zapisu.");
+              ustawStatus("Anulowano wybór miejsca zapisu.");
             return;
            }
-            ustawStatus("Nie udaĹ‚o siÄ™ wybraÄ‡ miejsca zapisu. UĹĽyto zwykĹ‚ego pobierania pliku.");
+            ustawStatus("Nie udało się wybrać miejsca zapisu. Użyto zwykłego pobierania pliku.");
          }
        }
         pobierzPlikZapisu(tekstZapisu);
-        ustawStatus("Zapisano dane maszyny do pliku pobranego przez przeglÄ…darkÄ™.");
+        ustawStatus("Zapisano dane maszyny do pliku pobranego przez przeglądarkę.");
      }
       function pobierzPlikZapisu(tekstZapisu) {
         const blob = new Blob([tekstZapisu], { type: "application/json" });
@@ -316,11 +316,11 @@
            zapiszWLokalnejPamieci(zapis);
            ustawStatus("Wczytano dane maszyny z pliku.");
         } catch (error) {
-           ustawStatus(`Nie udaĹ‚o siÄ™ wczytaÄ‡ pliku: ${error.message}`);
+           ustawStatus(`Nie udało się wczytać pliku: ${error.message}`);
          }
        };
        reader.onerror = () => {
-          ustawStatus("Nie udaĹ‚o siÄ™ odczytaÄ‡ wybranego pliku.");
+          ustawStatus("Nie udało się odczytać wybranego pliku.");
       };
        reader.readAsText(file);
       }
@@ -335,21 +335,21 @@
          zastosujZapis(zapis);
           ustawStatus("Wczytano zapisane dane maszyny.");
         } catch (error) {
-         ustawStatus(`Nie udaĹ‚o siÄ™ wczytaÄ‡ zapisu: ${error.message}`);
+         ustawStatus(`Nie udało się wczytać zapisu: ${error.message}`);
         }
      }
       function zapiszWLokalnejPamieci(zapis) {
         try {
           localStorage.setItem(KLUCZ_ZAPISU, JSON.stringify(zapis));
        } catch (error) {
-        console.warn("Nie udaĹ‚o siÄ™ zapisaÄ‡ w localStorage.", error);
+        console.warn("Nie udało się zapisać w localStorage.", error);
        }
     }
     function pobierzZLokalnejPamieci() {
         try {
         return localStorage.getItem(KLUCZ_ZAPISU);
         } catch (error) {
-          console.warn("Nie udaĹ‚o siÄ™ odczytaÄ‡ z localStorage.", error);
+          console.warn("Nie udało się odczytać z localStorage.", error);
          return null;
        }
     }
