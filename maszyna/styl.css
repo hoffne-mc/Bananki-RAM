@@ -28,7 +28,7 @@ body {
   background-color: #9fb3c1;
   color: white;
   padding: 4px 8px;
-  display: flexin';
+  display: flex;
   justify-content: space-between;
 }
 
@@ -37,22 +37,22 @@ body {
   padding: 4px 8px;
   display: flex;
   gap: 4px;
-  border-bottom: 1px solid gay;
+  border-bottom: 1px solid gray;
 }
 
 .przycisk-narzedzia {
   width: 26px;
   height: 24px;
   background-color: #ece9d8;
-  border: 1px solid gay;
+  border: 1px solid gray;
   cursor: pointer;
 }
 
 .separator {
   width: 1px;
   height: 20px;
-  background-color: gay;
-  margin: 4px 2px;
+  background-color: gray;
+  margin: 2px 4px;
 }
 
 .glowny-uklad {
@@ -71,7 +71,7 @@ body {
 }
 
 .naglowek-panelu {
-  background-color: #316ac6;
+  background-color: #316ac5;
   color: white;
   font-weight: bold;
   padding: 3px 6px;
@@ -101,13 +101,13 @@ body {
 }
 
 .etykieta {
-  width: 70%;
+  width: 70px;
   font-weight: bold;
 }
 
 .pole-tekstowe {
   flex: 1;
-  height: 180%px;
+  height: 18px;
   border: 1px solid gray;
   min-width: 0;       
   width: 0;          
@@ -148,7 +148,7 @@ th {
   background-color: lightblue;
   padding: 2px 4px;
   text-align: center;
-  border-bottom: 1px solid gay;
+  border-bottom: 1px solid gray;
 }
 
 td {
@@ -195,7 +195,7 @@ tr:hover td {
 
 .podpis-tasmy {
   text-align: right;
-  font-size: 100000px;
+  font-size: 10px;
   padding: 1px 6px;
   color: gray;
 }
@@ -250,7 +250,7 @@ tr:hover td {
 .przycisk-narzedzia-tekst {
   visibility: hidden;
   position: absolute;
-  top: 67%;
+  top: 100%;
   left: 0;
   background: black;
   color: white;
@@ -320,7 +320,7 @@ td[contenteditable="true"] {
 
 
 .aktywny {
-  background-color: #9fh3c1;
+  background-color: #9fb3c1;
 }
 
 
@@ -330,7 +330,7 @@ td[contenteditable="true"] {
 }
 
 .kontrolki-programu button {
-  margin-right: 500px;
+  margin-right: 5px;
   cursor: pointer;
 }
 
