@@ -739,21 +739,50 @@ function inicjalizujTasmeWejsciowa() {
     const cell = document.createElement("div");
 
     cell.className = "komorka";
-  }
-}
-
-if (!arrow) return;
-
-arrow.style.gridColumn = `${index + 1}`;
-
-function ustawStatus(text) {
-  $("#status").innerText = text;
-}
-
-inicjalizujPamiec();
-inicjalizujTasmeWejsciowa();
-wyczyscProgram();
-resetujMaszyne();
+    cell.contentEditable = "true";
+        cell.dataset.index = String(i);
+        cell.addEventListener("input", resetujGlowice);
+        container.appendChild(cell);
+      }
+    }
+    function renderInputTape() {
+      const cells = $$("#input-cells .komorka");
+      const emptyIndex = cells.findIndex(cell => cell.innerText.trim() === "");
+      const headIndex = emptyIndex === -1 ? cells.length - 1 : emptyIndex;
+      cells.forEach((cell, index) => {
+        cell.classList.toggle("head", index === headIndex);
+      });
+      ustawStrzalke("input-head", headIndex);
+    }
+    function renderTape(id, values, head, arrowId = null) {
+      const container = $(`#${id}`);
+      if (!container) return;
+      container.innerHTML = "";
+      const start = Math.max(0, head - 6);
+      const visible = values.slice(start, start + 7);
+      while (visible.length < 7) visible.push("");
+      const headColumn = Math.min(Math.max(head - start, 0), 6);
+      visible.forEach((value, index) => {
+        const cell = document.createElement("div");
+        cell.className = "komorka";
+        cell.textContent = value;
+        if (index === headColumn) cell.classList.add("head");
+        container.appendChild(cell);
+      });
+      if (arrowId) ustawStrzalke(arrowId, headColumn);
+    }
+    function ustawStrzalke(id, index) {
+      const arrow = $(`#${id}`);
+      if (!arrow) return;
+      arrow.style.gridColumn = `${index + 1}`;
+    }
+    function ustawStatus(text) {
+      $("#status").innerText = text;
+    }
+    inicjalizujPamiec();
+    inicjalizujTasmeWejsciowa();
+    wyczyscProgram();
+    resetujMaszyne();
       </script>
 </body>
 </html>
