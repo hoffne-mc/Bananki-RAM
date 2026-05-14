@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="styl.css" />
 </head>
 <body>
-  
   <div class="okno">
      <div class="pasek-narzedzi"> 
       <div class="wrapper">
@@ -40,32 +39,48 @@
       <div class="panel procesor">
         <div class="naglowek-panelu">PROCESSOR </div>
         <div class="wiersz-procesora">
-          <span class="etykieta">Instruction:</span>
-          <input class="pole-tekstowe" type="text" readonly />
+          <span class="etykieta">PC:</span>
+          <input id="pc-view" class="pole-tekstowe" type="text" readonly />
         </div>
         <div class="wiersz-procesora">
-          <span class="etykieta">PC:</span>
-          <input class="pole-tekstowe" type="text" readonly />
+          <span class="etykieta">Instrukcja:</span>
+          <input id="instruction-view" class="pole-tekstowe" type="text" readonly />
         </div>
       </div>
       <div class="panel tasma">
         <div class="tasma-blok">
           <div class="podpis-tasmy">INPUT</div>
           <div class="wiersz-strzalki">
-            <span id="input-head" class="strzalka-glowicy">â–Ľ</span>
+            <span id="input-head" class="strzalka-glowicy">▼</span>
           </div>
           <div id="input-cels" class="komorki-tasmy input-edittable"></div>
           </div>
           <div class="tasma-blok">
             <div class="podpis-tasmy">OUTPUT</div>
             <div class="wiersz-strzalki">
-              <span id="output-cells" class="komorki-tasmy">â–Ľ</span>
+              <span id="output-cells" class="komorki-tasmy">▼</span>
             </div>
             <div id="output-cells" class="komorki-tasmy"></div>
           </div>
           </div>
-          
         
+
+
+
+          <div class="panel pamiec">
+            <div class="naglowek-panelu">MEMORY</div>
+            <div class="przewijalna-tabela">
+              <table id="btt">
+                <thead>
+                  <tr>
+                    <th>Address</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody id="memory-body"></tbody>
+              </table>
+            </div>
+          </div>
         <div class="komorki-tasmy">
           <div class="komorka"></div>
           <div class="komorka"></div>
