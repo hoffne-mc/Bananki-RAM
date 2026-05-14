@@ -688,6 +688,63 @@ function ustawTasmeWejsciowa(values = []) {
     cell.innerText = values[index] || "";
   });
 }
+
+function render(program = pobierzProgram().program) {
+  $$("#program-body tr").forEach(row =>
+    row.classList.remove("current")
+  );
+
+  if (program[pc]) {
+    program[pc].row.classList.add("current");
+  }
+
+  const current = program[pc];
+
+  $("#pc-view").value = current
+    ? String(current.line + 1)
+    : String(pc + 1);
+
+  $("#instruction-view").value = current
+    ? current.instruction.toUpperCase()
+    : "";
+
+  $("#argument-view").value = current
+    ? current.argument
+    : "";
+
+  const rows = $$("#memory-body tr");
+
+  memory.forEach((value, index) => {
+    rows[index].cells[1].innerText =
+      value === null ? "" : value;
+
+    rows[index].classList.toggle(
+      "accumulator",
+      index === 0
+    );
+  });
+
+  renderInputTape();
+
+  renderTape(
+    "output-cells",
+    output,
+    output.length,
+    "output-head"
+  );
+}
+
+function inicjalizujTasmeWejsciowa() {
+  const container = $("#input-cells");
+
+  container.innerHTML = "";
+
+  for (let i = 0; i < 7; i++) {
+    const cell = document.createElement("div");
+
+    cell.className = "komorka";
+  }
+}
       </script>
 </body>
 </html>
