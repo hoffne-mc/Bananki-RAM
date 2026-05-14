@@ -225,7 +225,7 @@
               <td contenteditable="true"></td>
               <td contenteditable="true"></td>
             `;
-          }
+          
 
           function usunWiersz() {
             const tbody = document.getElementById("program-body");
@@ -270,6 +270,60 @@
               program: pobierzWierszeProgramu()
             };
           }
+ HEAD
+
+          function utworzSelect(wartosc = ""){
+            const select = document.createElement("select");
+            INSTRUKCJE.forEach(instr => {
+                select.add(new Option(instr, instr));
+            });
+            select.value = wartosc;
+            return select;
+          }
+
+          function dodajWiersz(dane = {}) {
+            const row = $("#program-body").insertRow();
+            row.innerHTML = `
+            <td class="ln"></td>
+            <td contenteditable="true"></td>
+            <td></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+             `;
+            row.cells[1].innerText = dane.label || "";
+            row.cells[2].appendChild(utworzSelect(dane.instuction || ""));
+            row.cells[3].innerText = dane.argument || "";
+            row.cells[4].innerText = dane.comment || "";
+            odswiezNumerWierszy();
+            render();
+          }
+          function odswiezNumerWierszy(){
+            $$("#program-body tr").forEach((row, index) => {
+              row.cells[0].innerText = `${index + 1}.`;
+            });
+          }
+
+          function usunWiersz() {
+            const tbody = $("#program-body");
+            if (tbody.rows.length > 1) {
+                tbody.deleteRow(tbody.rows.length - 1);
+            } else {
+                const row = tbody.rows[0];
+                row.cells[1].innerText = "";
+                row.cells[2].querySelector("select").value = "";
+                row.cells[3].innerText = "";
+                row.cells[4].innerText = "";
+            }
+            odswiezNumerWierszy();
+            render();
+          }
+
+          function odswiezNumerWierszy() {
+            $$("$program-body tr").forEach((row, index) => {
+                row.cells[0].innerText = `${index + 1}.`;
+            });
+          }
+
           async function zapiszMaszyne() {
        const zapis = przygotujZapis();
        const tekstZapisu = JSON.stringify(zapis, null, 2);
@@ -399,6 +453,7 @@
               label: `${accumulator} ${znak} ${operand}`
             });
           }
+
       </script>
 </body>
 </html>
