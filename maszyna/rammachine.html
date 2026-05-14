@@ -453,6 +453,54 @@
               label: `${accumulator} ${znak} ${operand}`
             });
           }
+           async function animujPrzeplyw({ from, to, value, label }) {
+      if (!from || !to) return;
+      animating = true;
+      const layer = $("#animation-layer");
+      const token = document.createElement("div");
+      token.className = "animowana-wartosc";
+      token.innerHTML = `<strong>${value}</strong><span>${label || ""}</span>`;
+      layer.appendChild(token);
+      const fromRect = from.getBoundingClientRect();
+      const toRect = to.getBoundingClientRect();
+      const startX = fromRect.left + fromRect.width / 2;
+      const startY = fromRect.top + fromRect.height / 2;
+      const endX = toRect.left + toRect.width / 2;
+      const endY = toRect.top + toRect.height / 2;
+      from.classList.add("animacja-zrodlo");
+      to.classList.add("animacja-cel");
+      token.style.left = `${startX}px`;
+      token.style.top = `${startY}px`;
+      try {
+        if (token.animate) {
+          await token.animate(
+            [
+              { left: `${startX}px`, top: `${startY}px`, transform: "translate(-50%, -50%) scale(0.9)", opacity: 0.25 },
+              { left: `${(startX + endX) / 2}px`, top: `${Math.min(startY, endY) - 28}px`, transform: "translate(-50%, -80%) scale(1.08)", opacity: 1, offset: 0.45 },
+              { left: `${endX}px`, top: `${endY}px`, transform: "translate(-50%, -50%) scale(1)", opacity: 1 }
+            ],
+            {
+              duration: CZAS_ANIMACJI,
+              easing: "cubic-bezier(.2,.7,.2,1)",
+              fill: "forwards"
+            }
+          ).finished;
+        } else {
+          await new Promise(resolve => setTimeout(resolve, CZAS_ANIMACJI));
+          token.style.left = `${endX}px`;
+          token.style.top = `${endY}px`;
+        }
+      } catch (error) {
+        token.style.left = `${endX}px`;
+        token.style.top = `${endY}px`;
+      }
+      token.classList.add("animacja-koniec");
+      await new Promise(resolve => setTimeout(resolve, 120));
+      token.remove();
+      from.classList.remove("animacja-zrodlo");
+      to.classList.remove("animacja-cel");
+      animating = false;
+    }
 
       </script>
 </body>
