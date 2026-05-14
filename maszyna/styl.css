@@ -275,7 +275,6 @@ tr:hover td {
   position: relative;
   display: inline-block;
 }
-
 .przycisk-narzedzia-tekst {
   visibility: hidden;
   position: absolute;
@@ -286,21 +285,23 @@ tr:hover td {
   padding: 4px;
   white-space: nowrap;
 }
-
 .wrapper:hover .przycisk-narzedzia-tekst {
   visibility: visible;
 }
-
 #bu{
   width: 25px;
 }
-
-
 #but{
  width: 25px;
 }
 
 
+
+
+.accumulator td{
+  font-weight: bold;
+  background-color: #e8f4ff;
+}
 .tabela-programu {
   width: 98%;
   border-collapse: collapse;
@@ -309,7 +310,10 @@ tr:hover td {
   margin:10px;
   margin-left: 30px;
 }
-
+#btt
+#btt td{
+  border: 1px black solid;
+}
 .tabela-programu th {
   background-color: #9fb3c1;
   color: #345a74;
