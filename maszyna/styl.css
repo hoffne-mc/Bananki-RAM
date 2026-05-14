@@ -1,82 +1,61 @@
-
-
-body {
-  background-color: gray;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-}
-
-
-
-.okno {
-  width: 100%;
-  height: 100vh;
-  background-color: #ece9d8;
-  border: 2px solid #808080;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
-
-
-
-
-.pasek-tytulu {
-  background-color: #9fb3c1;
-  color: white;
-  padding: 4px 8px;
-  display: flexin';
-  justify-content: space-between;
-}
-
-
-.pasek-narzedzi {
-  padding: 4px 8px;
-  display: flex;
-  gap: 4px;
-  border-bottom: 1px solid gay;
-}
-
-.przycisk-narzedzia {
-  width: 26px;
-  height: 24px;
-  background-color: #ece9d8;
-  border: 1px solid gay;
-  cursor: pointer;
-}
-
-.separator {
-  width: 1px;
-  height: 20px;
-  background-color: gay;
-  margin: 4px 2px;
-}
-
-.glowny-uklad {
-  display: grid;
-  grid-template-columns: 165px 1fr;
-  grid-template-rows: auto 1fr auto;
-  gap: 6px;
-  padding: 6px;
-  flex: 1;              
-  overflow: hidden;
-}
-
-.panel {
-  border: 2px solid gray;
-  background-color: #ece9d8;
-}
-
-.naglowek-panelu {
-  background-color: #316ac6;
-  color: white;
-  font-weight: bold;
-  padding: 3px 6px;
-  text-align: center;
-}
+ body {
+     background-color: gray;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+    }
+    .okno {
+     width: 100%;
+     height: 100vh;
+     background-color: #ece9d8;
+     border: 2px solid #808080;
+    box-sizing: border-box;
+    display: flex;
+     flex-direction: column;
+     position: relative;
+   }
+  .pasek-narzedzi {
+     padding: 4px 8px;
+     display: flex;
+     gap: 4px;
+     border-bottom: 1px solid gray;
+     align-items: center;
+   }
+   .przycisk-narzedzia {
+     width: 26px;
+     height: 24px;
+     background-color: #ece9d8;
+     border: 1px solid gray;
+     cursor: pointer;
+   }
+  .separator {
+     width: 1px;
+    height: 20px;
+     background-color: gray;
+     margin: 2px 4px;
+  }
+   .glowny-uklad {
+    display: grid;
+     grid-template-columns: 165px 1fr;
+     grid-template-rows: auto 1fr auto;
+     gap: 6px;
+     padding: 6px;
+     flex: 1;
+     overflow: hidden;
+   }
+   .panel {
+     border: 2px solid gray;
+    background-color: #ece9d8;
+  }
+   .naglowek-panelu {
+     background-color: #316ac5;
+     color: white;
+     font-weight: bold;
+    padding: 3px 6px;
+    text-align: center;
+  }
 
 .odznaka {
   background-color: orange;
@@ -101,13 +80,13 @@ body {
 }
 
 .etykieta {
-  width: 70%;
+  width: 70px;
   font-weight: bold;
 }
 
 .pole-tekstowe {
   flex: 1;
-  height: 180%px;
+  height: 18px;
   border: 1px solid gray;
   min-width: 0;       
   width: 0;          
@@ -148,7 +127,7 @@ th {
   background-color: lightblue;
   padding: 2px 4px;
   text-align: center;
-  border-bottom: 1px solid gay;
+  border-bottom: 1px solid gray;
 }
 
 td {
@@ -195,7 +174,7 @@ tr:hover td {
 
 .podpis-tasmy {
   text-align: right;
-  font-size: 100000px;
+  font-size: 10px;
   padding: 1px 6px;
   color: gray;
 }
@@ -250,7 +229,7 @@ tr:hover td {
 .przycisk-narzedzia-tekst {
   visibility: hidden;
   position: absolute;
-  top: 67%;
+  top: 100%;
   left: 0;
   background: black;
   color: white;
@@ -320,7 +299,7 @@ td[contenteditable="true"] {
 
 
 .aktywny {
-  background-color: #9fh3c1;
+  background-color: #9fb3c1;
 }
 
 
@@ -330,7 +309,7 @@ td[contenteditable="true"] {
 }
 
 .kontrolki-programu button {
-  margin-right: 500px;
+  margin-right: 5px;
   cursor: pointer;
 }
 
