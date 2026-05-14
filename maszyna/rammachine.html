@@ -454,6 +454,240 @@
             });
           }
 
+
+    async function wykonajKrok() {
+  if (animating) return false;
+  if (!running) running = true;
+
+  const { program, labels } = pobierzProgram();
+
+  if (pc < 0 || pc >= program.length) {
+    running = false;
+    ustawStatus("Program zakończony: PC poza zakresem programu.");
+    render(program);
+    return false;
+  }
+
+  const cmd = program[pc];
+  let nextPc = pc + 1;
+
+  try {
+    switch (cmd.instruction) {
+      case "read": {
+        const target = wolnyRejestr();
+        const value = wartoscZTasmy(cmd.argument);
+
+        await animujPrzeplyw({
+          from: komorkaWejscia(normalizujLiczbe(cmd.argument) - 1),
+          to: komorkaPamieci(target),
+          value,
+          label: `READ -> R${target}`
+        });
+
+        memory[target] = value;
+        break;
+      }
+
+      case "write": {
+        const sourceArgument = cmd.argument || "0";
+        const value = wartosc(sourceArgument);
+
+        await animujPrzeplyw({
+          from: elementDlaArgumentu(sourceArgument),
+          to: wolnaKomorkaWyjscia(),
+          value,
+          label: `WRITE ${value}`
+        });
+
+        output.push(value);
+        break;
+      }
+
+      case "load":
+        await animujPrzeplyw({
+          from: elementDlaArgumentu(cmd.argument),
+          to: komorkaPamieci(0),
+          value: wartosc(cmd.argument),
+          label: "LOAD -> R0"
+        });
+
+        memory[0] = wartosc(cmd.argument);
+        break;
+
+      case "store": {
+        const target = adres(cmd.argument);
+        const value = wymaganaWartoscRejestru(0, cmd.instruction);
+
+        await animujPrzeplyw({
+          from: komorkaPamieci(0),
+          to: komorkaPamieci(target),
+          value,
+          label: `STORE -> R${target}`
+        });
+
+        memory[target] = value;
+      }
+      break;
+
+      case "add":
+        await wykonajArytmetyke(cmd, "+", (a, b) => a + b);
+        break;
+
+      case "sub":
+        await wykonajArytmetyke(cmd, "-", (a, b) => a - b);
+        break;
+
+      case "mult":
+        await animujOperacje(cmd, "×", wartosc(cmd.argument));
+        memory[0] =
+          wymaganaWartoscRejestru(0, cmd.instruction) *
+          wartosc(cmd.argument);
+        break;
+
+      case "div": {
+        const divisor = wartosc(cmd.argument);
+
+        if (divisor === 0) {
+          throw new Error("Dzielenie przez zero.");
+        }
+
+        await animujOperacje(cmd, "÷", divisor);
+
+        memory[0] = Math.trunc(
+          wymaganaWartoscRejestru(0, cmd.instruction) / divisor
+        );
+
+        break;
+      }
+
+      case "jump":
+        nextPc = celSkoku(cmd.argument, labels);
+        break;
+
+      case "jzero":
+        if (wymaganaWartoscRejestru(0, cmd.instruction) === 0) {
+          nextPc = celSkoku(cmd.argument, labels);
+        }
+        break;
+
+      case "jgtz":
+        if (wymaganaWartoscRejestru(0, cmd.instruction) > 0) {
+          nextPc = celSkoku(cmd.argument, labels);
+        }
+        break;
+
+      case "halt":
+        running = false;
+        pc = nextPc;
+
+        ustawStatus("Program zatrzymany instrukcją HALT.");
+        render(program);
+
+        return false;
+
+      default:
+        throw new Error(`Nieznana instrukcja: ${cmd.instruction}.`);
+    }
+
+    pc = nextPc;
+
+    ustawStatus(
+      `Wykonano: ${cmd.instruction.toUpperCase()} ${cmd.argument}`
+    );
+
+    render(program);
+
+    return true;
+
+  } catch (error) {
+    running = false;
+
+    ustawStatus(
+      `Błąd w linii ${cmd.line + 1}: ${error.message}`
+    );
+
+    render(program);
+
+    return false;
+  }
+}
+
+async function uruchomProgram() {
+  if (animating) return;
+
+  running = true;
+  let steps = 0;
+
+  while (
+    running &&
+    steps < LIMIT_KROKOW &&
+    (await wykonajKrok())
+  ) {
+    steps++;
+  }
+
+  if (steps >= LIMIT_KROKOW) {
+    running = false;
+
+    ustawStatus(
+      `Przerwano po ${LIMIT_KROKOW} krokach. Możliwa pętla nieskończona.`
+    );
+  }
+
+  render();
+}
+
+function zatrzymajProgram() {
+  running = false;
+
+  ustawStatus("Program zatrzymany przez użytkownika.");
+
+  render();
+}
+
+function resetujGlowice() {
+  inputHead = 0;
+  output = [];
+
+  render();
+}
+
+function resetujMaszyne() {
+  pc = 0;
+  inputHead = 0;
+  output = [];
+
+  memory = Array(LICZBA_REJESTROW).fill(null);
+
+  running = false;
+
+  ustawStatus("Maszyna zresetowana.");
+
+  render();
+}
+
+function pobierzWierszeProgramu() {
+  return $$("#program-body tr").map(row => ({
+    label: row.cells[1].innerText.trim(),
+    instruction: row.cells[2].querySelector("select").value.trim(),
+    argument: row.cells[3].innerText.trim(),
+    comment: row.cells[4].innerText.trim()
+  }));
+}
+
+function pobierzTasmeWejsciowa() {
+  return $$("#input-cells .komorka").map(cell =>
+    cell.innerText.trim()
+  );
+}
+
+function ustawTasmeWejsciowa(values = []) {
+  const cells = $$("#input-cells .komorka");
+
+  cells.forEach((cell, index) => {
+    cell.innerText = values[index] || "";
+  });
+}
       </script>
 </body>
 </html>
