@@ -62,11 +62,7 @@
             </div>
             <div id="output-cells" class="komorki-tasmy"></div>
           </div>
-          </div>
-        
-
-
-
+        </div>
           <div class="panel pamiec">
             <div class="naglowek-panelu">MEMORY</div>
             <div class="przewijalna-tabela">
@@ -90,54 +86,6 @@
         </div>
         <div class="strzalka-glowicy">▲</div>
         <br>
-      </div>
-      <div class="panel pamiec">
-        <div class="naglowek-panelu">MEMORY </div>
-        <div class="przewijalna-tabela">
-          <table id="btt">
-            <thead>
-              <tr>
-                <th>Address</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>0</td><td></td></tr>
-              <tr><td>1</td><td></td></tr>
-              <tr><td>2</td><td></td></tr>
-              <tr><td>3</td><td></td></tr>
-              <tr><td>4</td><td></td></tr>
-              <tr><td>5</td><td></td></tr>
-              <tr><td>6</td><td></td></tr>
-              <tr><td>7</td><td></td></tr>
-              <tr><td>8</td><td></td></tr>
-              <tr><td>9</td><td></td></tr>
-              <tr><td>10</td><td></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="panel program">
-        <div class="naglowek-panelu">PROGAM</div>
-        <div class="przewijalna-tabela">
-            <table class="tabela-programu">
-                <thead>
-                      <tr>
-                        <th class="col-ln">Ln</th>
-                        <th class="col-lbl">Label</th>
-                        <th class="col-ins">Instruction</th>
-                        <th class="col-arg">Argument</th>
-                        <th class="col-com">Coment</th>
-                      </tr>
-                </thead>
-                <tbody id="program-body"></tbody>
-            </table>
-            <div class="kontrolki-programu">
-                <button id="but" type="button" onclick="dodajWiersz()">+</button>
-                <button id="bu" type="button" onclick="usunWiersz()">-</button>
-            </div>
-        </div>
       </div>
 
       <div class="panel program">
@@ -890,6 +838,19 @@ function inicjalizujTasmeWejsciowa() {
     cell.className = "komorka";
   }
 }
+
+if (!arrow) return;
+
+arrow.style.gridColumn = `${index + 1}`;
+
+function ustawStatus(text) {
+  $("#status").innerText = text;
+}
+
+inicjalizujPamiec();
+inicjalizujTasmeWejsciowa();
+wyczyscProgram();
+resetujMaszyne();
       </script>
 </body>
 </html>
