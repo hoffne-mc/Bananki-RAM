@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="styl.css" />
 </head>
 <body>
-  
   <div class="okno">
      <div class="pasek-narzedzi"> 
       <div class="wrapper">
@@ -40,12 +39,12 @@
       <div class="panel procesor">
         <div class="naglowek-panelu">PROCESSOR </div>
         <div class="wiersz-procesora">
-          <span class="etykieta">Instruction:</span>
-          <input class="pole-tekstowe" type="text" readonly />
+          <span class="etykieta">PC:</span>
+          <input id="pc-view" class="pole-tekstowe" type="text" readonly />
         </div>
         <div class="wiersz-procesora">
-          <span class="etykieta">PC:</span>
-          <input class="pole-tekstowe" type="text" readonly />
+          <span class="etykieta">Instrukcja:</span>
+          <input id="instruction-view" class="pole-tekstowe" type="text" readonly />
         </div>
       </div>
       <div class="panel tasma">
@@ -64,8 +63,24 @@
             <div id="output-cells" class="komorki-tasmy"></div>
           </div>
           </div>
-          
         
+
+
+
+          <div class="panel pamiec">
+            <div class="naglowek-panelu">MEMORY</div>
+            <div class="przewijalna-tabela">
+              <table id="btt">
+                <thead>
+                  <tr>
+                    <th>Address</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody id="memory-body"></tbody>
+              </table>
+            </div>
+          </div>
         <div class="komorki-tasmy">
           <div class="komorka"></div>
           <div class="komorka"></div>
@@ -102,6 +117,29 @@
           </table>
         </div>
       </div>
+
+      <div class="panel program">
+        <div class="naglowek-panelu">PROGAM</div>
+        <div class="przewijalna-tabela">
+            <table class="tabela-programu">
+                <thead>
+                      <tr>
+                        <th class="col-ln">Ln</th>
+                        <th class="col-lbl">Label</th>
+                        <th class="col-ins">Instruction</th>
+                        <th class="col-arg">Argument</th>
+                        <th class="col-com">Coment</th>
+                      </tr>
+                </thead>
+                <tbody id="program-body"></tbody>
+            </table>
+            <div class="kontrolki-programu">
+                <button id="but" type="button" onclick="dodajWiersz()">+</button>
+                <button id="bu" type="button" onclick="usunWiersz()">-</button>
+            </div>
+        </div>
+      </div>
+
       <div class="panel program">
         <div class="naglowek-panelu">PROGRAM </div>
         <div class="przewijalna-tabela">
@@ -232,40 +270,6 @@
               program: pobierzWierszeProgramu()
             };
           }
-
-          function wyczyscProgram() {
-            const tbody = $("#program-body");
-            tbody.innerHTML ="";
-            dodajWiersz();
-          }
-          function komorkaPameci(index){
-            const row = $$("#memory-body tr")[index];
-            if (!row) return null;
-            row.scrollIntoView({block: "nearest"});
-            return row.cells[1];
-          }
-          function komorkaWejscia(index){
-            return $$("#input-cells .komorka")[index] || null;
-          }
-          function wolnaKomorkaWyjscia(){
-            return $("#output-cells .komorka.head") || $("#output-cells .komorka:last-child");
-          }
-          function elementDlaArgumentu(argument) {
-            if (!argument) return komorkaPamieci(0);
-            if (argument.startsWith("=")) return $("#argument-view");
-            return komorkaPamieci(adres(argument));
-          }
-          async function animujOperacje(cmd,znak, operand){
-            const accumulator = wymaganaWartoscRejestru(0,cmd.instruction);
-            await animujPrzeplyw({
-              from: elementDlaArgumentu(cmd.argument),
-              to: komorkaPameci(0),
-              value: operand,
-              label: `${accumulator} ${znak} ${operand}`
-            });
-          }
-            
-          
       </script>
 </body>
 </html>
