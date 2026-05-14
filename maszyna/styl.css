@@ -356,8 +356,81 @@ tr:hover td {
   background-color: yellow !important;
 }
 
+.program {
+  grid-column: 2;
+  grid-row: 2;
 
+  display: flex;
+  flex-direction: column;
+}
 
+.current td {
+  background-color: #ffe680 !important;
+  color: #222;
+}
+
+.tabela-programu {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #9fb3c1;
+  color: #718c9e;
+  table-layout: fixed;
+}
+
+.tabela-programu th {
+  background-color: #9fb3c1;
+  color: #345a74;
+  font-weight: normal;
+  border: 1px solid #4a5c68;
+  padding: 4px;
+}
+
+.tabela-programu td {
+  text-align: left;
+  border: 1px solid #4a5c68;
+  padding: 4px;
+}
+
+.col-ln,
+.ln {
+  width: 40px;
+}
+
+.ln {
+  text-align: right;
+  color: #3a4d5a;
+}
+
+.col-lbl,
+.col-ins,
+.col-arg,
+.col-com {
+  width: 25%;
+}
+
+td[contenteditable="true"] {
+  outline: none;
+}
+
+.tabela-programu select {
+  width: 100%;
+  background-color: #9fb3c1;
+  color: #cfe3f1;
+  border: none;
+}
+
+.tabela-programu tbody tr:hover {
+  background-color: #9fb3c1;
+}
+
+.kontrolki-programu {
+  margin-top: 5px;
+}
+
+.kontrolki-programu button {
+  margin-right: 5px;
+  cursor: pointer;
+}
 
 .tasma-wyjscie {
   grid-column: 2;
@@ -381,7 +454,6 @@ tr:hover td {
   position: relative;
   display: inline-block;
 }
-
 .przycisk-narzedzia-tekst {
   visibility: hidden;
   position: absolute;
@@ -392,21 +464,23 @@ tr:hover td {
   padding: 4px;
   white-space: nowrap;
 }
-
 .wrapper:hover .przycisk-narzedzia-tekst {
   visibility: visible;
 }
-
 #bu{
   width: 25px;
 }
-
-
 #but{
  width: 25px;
 }
 
 
+
+
+.accumulator td{
+  font-weight: bold;
+  background-color: #e8f4ff;
+}
 .tabela-programu {
   width: 98%;
   border-collapse: collapse;
@@ -415,7 +489,10 @@ tr:hover td {
   margin:10px;
   margin-left: 30px;
 }
-
+#btt
+#btt td{
+  border: 1px black solid;
+}
 .tabela-programu th {
   background-color: #9fb3c1;
   color: #345a74;
