@@ -210,7 +210,7 @@
               <td contenteditable="true"></td>
               <td contenteditable="true"></td>
             `;
-          }
+          
 
           function usunWiersz() {
             const tbody = document.getElementById("program-body");
@@ -255,6 +255,7 @@
               program: pobierzWierszeProgramu()
             };
           }
+ HEAD
 
           function utworzSelect(wartosc = ""){
             const select = document.createElement("select");
@@ -279,6 +280,12 @@
             row.cells[3].innerText = dane.argument || "";
             row.cells[4].innerText = dane.comment || "";
             odswiezNumerWierszy();
+            render();
+          }
+          function odswiezNumerWierszy(){
+            $$("#program-body tr").forEach((row, index) => {
+              row.cells[0].innerText = `${index + 1}.`;
+            });
           }
 
           function usunWiersz() {
@@ -301,6 +308,106 @@
                 row.cells[0].innerText = `${index + 1}.`;
             });
           }
+
+          async function zapiszMaszyne() {
+       const zapis = przygotujZapis();
+       const tekstZapisu = JSON.stringify(zapis, null, 2);
+       zapiszWLokalnejPamieci(zapis);
+       if (window.showSaveFilePicker) {
+         try {
+           const handle = await window.showSaveFilePicker({
+             suggestedName: "ram-machine-zapis.json",
+              types: [
+                {
+                 description: "Plik zapisu RAM Machine",
+                  accept: { "application/json": [".json"] }
+               }
+              ]
+           });
+           const writable = await handle.createWritable();
+            await writable.write(tekstZapisu);
+            await writable.close();
+          ustawStatus("Zapisano dane maszyny we wskazanym miejscu.");
+           return;
+          } catch (error) {
+           if (error.name === "AbortError") {
+              ustawStatus("Anulowano wybĂłr miejsca zapisu.");
+            return;
+           }
+            ustawStatus("Nie udaĹ‚o siÄ™ wybraÄ‡ miejsca zapisu. UĹĽyto zwykĹ‚ego pobierania pliku.");
+         }
+       }
+        pobierzPlikZapisu(tekstZapisu);
+        ustawStatus("Zapisano dane maszyny do pliku pobranego przez przeglÄ…darkÄ™.");
+     }
+      function pobierzPlikZapisu(tekstZapisu) {
+        const blob = new Blob([tekstZapisu], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+      link.href = url;
+        link.download = "ram-machine-zapis.json";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+       setTimeout(() => URL.revokeObjectURL(url), 1000);
+     }
+      function wczytajMaszyne() {
+        const input = $("#plik-zapisu");
+        input.value = "";
+       input.click();
+      }
+    function obsluzPlikZapisu(event) {
+        const file = event.target.files[0];
+      if (!file) {
+          wczytajMaszyneZPrzegladarki();
+         return;
+       }
+      const reader = new FileReader();
+      reader.onload = () => {
+          try {
+           const zapis = JSON.parse(reader.result);
+            zastosujZapis(zapis);
+           zapiszWLokalnejPamieci(zapis);
+           ustawStatus("Wczytano dane maszyny z pliku.");
+        } catch (error) {
+           ustawStatus(`Nie udaĹ‚o siÄ™ wczytaÄ‡ pliku: ${error.message}`);
+         }
+       };
+       reader.onerror = () => {
+          ustawStatus("Nie udaĹ‚o siÄ™ odczytaÄ‡ wybranego pliku.");
+      };
+       reader.readAsText(file);
+      }
+      function wczytajMaszyneZPrzegladarki() {
+        const raw = pobierzZLokalnejPamieci();
+        if (!raw) {
+         ustawStatus("Brak zapisanych danych maszyny.");
+          return;
+       }
+        try {
+         const zapis = JSON.parse(raw);
+         zastosujZapis(zapis);
+          ustawStatus("Wczytano zapisane dane maszyny.");
+        } catch (error) {
+         ustawStatus(`Nie udaĹ‚o siÄ™ wczytaÄ‡ zapisu: ${error.message}`);
+        }
+     }
+      function zapiszWLokalnejPamieci(zapis) {
+        try {
+          localStorage.setItem(KLUCZ_ZAPISU, JSON.stringify(zapis));
+       } catch (error) {
+        console.warn("Nie udaĹ‚o siÄ™ zapisaÄ‡ w localStorage.", error);
+       }
+    }
+    function pobierzZLokalnejPamieci() {
+        try {
+        return localStorage.getItem(KLUCZ_ZAPISU);
+        } catch (error) {
+          console.warn("Nie udaĹ‚o siÄ™ odczytaÄ‡ z localStorage.", error);
+         return null;
+       }
+    }
+
       </script>
 </body>
 </html>
