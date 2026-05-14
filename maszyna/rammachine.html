@@ -250,7 +250,104 @@
               row.cells[0].innerText = `${index + 1}.`;
             });
           }
+function inicjalizujPamiec() {
+  const tbody = $("#memory-body");
+  tbody.innerHTML = "";
 
+  for (let i = 0; i < LICZBA_REJESTROW; i++) {
+    const row = tbody.insertRow();
+
+    row.innerHTML = `<td>${i}</td><td contenteditable="true"></td>`;
+
+    row.cells[1].addEventListener("input", () => {
+      memory[i] = normalizujKomorkePamieci(row.cells[1].innerText);
+    });
+  }
+}
+
+function pobierzProgram() {
+  const rows = $$("#program-body tr");
+  const labels = new Map();
+
+  const program = rows.map((row, index) => {
+    const label = row.cells[1].innerText.trim();
+    const instruction = row.cells[2]
+      .querySelector("select")
+      .value
+      .trim()
+      .toLowerCase();
+
+    const argument = row.cells[3].innerText.trim();
+
+    if (label) labels.set(label, index);
+
+    return {
+      row,
+      label,
+      instruction,
+      argument,
+      line: index
+    };
+  }).filter(cmd => cmd.instruction);
+
+  const oldToNew = new Map();
+  let visibleLine = 0;
+
+  rows.forEach((row, index) => {
+    const instruction = row.cells[2]
+      .querySelector("select")
+      .value
+      .trim()
+      .toLowerCase();
+
+    if (instruction) {
+      oldToNew.set(index, visibleLine++);
+    }
+  });
+
+  labels.forEach((oldIndex, label) => {
+    labels.set(label, oldToNew.get(oldIndex));
+  });
+  return { program, labels };
+}
+function normalizujLiczbe(value) {
+  const parsed = parseInt(
+    String(value).replace(",", ".").trim(),
+    10
+  );
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+function normalizujKomorkePamieci(value) {
+  const text = String(value).trim();
+  return text === ""
+    ? null
+    : normalizujLiczbe(text);
+}
+function wartoscRejestru(index) {
+  if (memory[index] === null) {
+    throw new Error(`Rejestr R${index} jest pusty.`);
+  }
+  return memory[index];
+}
+function wymaganaWartoscRejestru(index, instrukcja) {
+  if (memory[index] === null) {
+    const dopisek =
+      index === 0
+        ? " Najpierw użyj LOAD."
+        : "";
+    throw new Error(
+      `${instrukcja.toUpperCase()} wymaga wartości w R${index}.${dopisek}`
+    );
+  }
+  return memory[index];
+}
+function wolnyRejestr() {
+  for (let i = 1; i < LICZBA_REJESTROW; i++) {
+    if (memory[i] === null) {
+      return i;
+    }
+  }
+  throw new Error("Brak wolnego rejestru w pamięci.");
           function usunWiersz() {
             const tbody = $("#program-body");
             if (tbody.rows.length > 1) {
