@@ -793,6 +793,19 @@ function inicjalizujTasmeWejsciowa() {
     cell.className = "komorka";
   }
 }
+
+if (!arrow) return;
+
+arrow.style.gridColumn = `${index + 1}`;
+
+function ustawStatus(text) {
+  $("#status").innerText = text;
+}
+
+inicjalizujPamiec();
+inicjalizujTasmeWejsciowa();
+wyczyscProgram();
+resetujMaszyne();
       </script>
 </body>
 </html>
