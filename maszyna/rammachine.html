@@ -422,6 +422,37 @@
          return null;
        }
     }
+    function wyczyscProgram() {
+            const tbody = $("#program-body");
+            tbody.innerHTML ="";
+            dodajWiersz();
+          }
+          function komorkaPameci(index){
+            const row = $$("#memory-body tr")[index];
+            if (!row) return null;
+            row.scrollIntoView({block: "nearest"});
+            return row.cells[1];
+          }
+          function komorkaWejscia(index){
+            return $$("#input-cells .komorka")[index] || null;
+          }
+          function wolnaKomorkaWyjscia(){
+            return $("#output-cells .komorka.head") || $("#output-cells .komorka:last-child");
+          }
+          function elementDlaArgumentu(argument) {
+            if (!argument) return komorkaPamieci(0);
+            if (argument.startsWith("=")) return $("#argument-view");
+            return komorkaPamieci(adres(argument));
+          }
+          async function animujOperacje(cmd,znak, operand){
+            const accumulator = wymaganaWartoscRejestru(0,cmd.instruction);
+            await animujPrzeplyw({
+              from: elementDlaArgumentu(cmd.argument),
+              to: komorkaPameci(0),
+              value: operand,
+              label: `${accumulator} ${znak} ${operand}`
+            });
+          }
 
 
     async function wykonajKrok() {
