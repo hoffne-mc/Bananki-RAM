@@ -2,42 +2,42 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>RAM Machine 2006</title>
+  <title>RAM Machine</title>
   <link rel="stylesheet" href="styl.css" />
 </head>
 <body>
   <div class="okno">
-     <div class="pasek-narzedzi"> 
+    <div class="pasek-narzedzi">
       <div class="wrapper">
-      <button class="przycisk-narzedzia" type="button" onclick="zapiszMaszyne()">📂</button>
-      <div class="przycisk-narzedzia-tekst">Zapisz dane maszyny</div>
+        <button class="przycisk-narzedzia" type="button" onclick="zapiszMaszyne()">📄</button>
+        <div class="przycisk-narzedzia-tekst">Zapisz dane maszyny</div>
       </div>
       <div class="wrapper">
-      <button class="przycisk-narzedzia" type="button" onclick="wczytajMaszyne()">📄</button>
-      <div class="przycisk-narzedzia-tekst">Wczytaj zapisane dane</div>
+        <button class="przycisk-narzedzia" type="button" onclick="wczytajMaszyne()">📂</button>
+        <div class="przycisk-narzedzia-tekst">Wczytaj zapisane dane</div>
       </div>
-<input id="plik-zapisu" type="file" accept="application/json,.json" onchange="obsluzPlikZapisu(event)" hidden />
+      <input id="plik-zapisu" type="file" accept="application/json,.json" onchange="obsluzPlikZapisu(event)" hidden />
       <div class="separator"></div>
       <div class="wrapper">
-      <button class="przycisk-narzedzia" type="button" onclick="uruchomProgram()">▶</button>
-      <div class="przycisk-narzedzia-tekst">Uruchom program</div>
+        <button class="przycisk-narzedzia" type="button" onclick="uruchomProgram()">▶</button>
+        <div class="przycisk-narzedzia-tekst">Uruchom program</div>
       </div>
       <div class="wrapper">
-      <button class="przycisk-narzedzia" type="button" onclick="wykonajKrok()">⏭</button>
-      <div class="przycisk-narzedzia-tekst">Wykonaj jeden krok</div>
-      </div>  
+        <button class="przycisk-narzedzia" type="button" onclick="wykonajKrok()">↷</button>
+        <div class="przycisk-narzedzia-tekst">Wykonaj jeden krok</div>
+      </div>
       <div class="wrapper">
-      <button class="przycisk-narzedzia" type="button" onclick="zatrzymajProgram()">⏺</button>
-      <div class="przycisk-narzedzia-tekst">Zakończ program</div>
-      </div>  
+        <button class="przycisk-narzedzia" type="button" onclick="zatrzymajProgram()">■</button>
+        <div class="przycisk-narzedzia-tekst">Zakończ program</div>
+      </div>
       <div class="wrapper">
-      <button class="przycisk-narzedzia" type="button" onclick="resetujMaszyne()">↺</button>
-      <div class="przycisk-narzedzia-tekst">Resetuj maszyne</div>
-      </div>  
+        <button class="przycisk-narzedzia" type="button" onclick="resetujMaszyne()">↺</button>
+        <div class="przycisk-narzedzia-tekst">Resetuj maszynę</div>
+      </div>
     </div>
-<div class="glowny-uklad">
+    <div class="glowny-uklad">
       <div class="panel procesor">
-        <div class="naglowek-panelu">PROCESSOR </div>
+        <div class="naglowek-panelu">PROCESSOR</div>
         <div class="wiersz-procesora">
           <span class="etykieta">PC:</span>
           <input id="pc-view" class="pole-tekstowe" type="text" readonly />
@@ -46,6 +46,10 @@
           <span class="etykieta">Instrukcja:</span>
           <input id="instruction-view" class="pole-tekstowe" type="text" readonly />
         </div>
+        <div class="wiersz-procesora">
+          <span class="etykieta">Argument:</span>
+          <input id="argument-view" class="pole-tekstowe" type="text" readonly />
+        </div>
       </div>
       <div class="panel tasma">
         <div class="tasma-blok">
@@ -53,452 +57,527 @@
           <div class="wiersz-strzalki">
             <span id="input-head" class="strzalka-glowicy">▼</span>
           </div>
-          <div id="input-cels" class="komorki-tasmy input-edittable"></div>
-          </div>
-          <div class="tasma-blok">
-            <div class="podpis-tasmy">OUTPUT</div>
-            <div class="wiersz-strzalki">
-              <span id="output-cells" class="komorki-tasmy">▼</span>
-            </div>
-            <div id="output-cells" class="komorki-tasmy"></div>
-          </div>
+          <div id="input-cells" class="komorki-tasmy input-editable"></div>
         </div>
-          <div class="panel pamiec">
-            <div class="naglowek-panelu">MEMORY</div>
-            <div class="przewijalna-tabela">
-              <table id="btt">
-                <thead>
-                  <tr>
-                    <th>Address</th>
-                    <th>Value</th>
-                  </tr>
-                </thead>
-                <tbody id="memory-body"></tbody>
-              </table>
-            </div>
+        <div class="tasma-blok">
+          <div class="podpis-tasmy">OUTPUT</div>
+          <div class="wiersz-strzalki">
+            <span id="output-head" class="strzalka-glowicy">▼</span>
           </div>
-        <div class="komorki-tasmy">
-          <div class="komorka"></div>
-          <div class="komorka"></div>
-          <div class="komorka"></div>
-          <div class="komorka"></div>
-          <div class="komorka"></div>
+          <div id="output-cells" class="komorki-tasmy"></div>
         </div>
-        <div class="strzalka-glowicy">▲</div>
-        <br>
       </div>
-
-      <div class="panel program">
-        <div class="naglowek-panelu">PROGRAM </div>
+      <div class="panel pamiec">
+        <div class="naglowek-panelu">MEMORY</div>
         <div class="przewijalna-tabela">
-                  <table class="tabela-programu">
-                      <thead>
-                        <tr>
-                          <th class="col-ln"></th>
-                          <th class="col-lbl">Label</th>
-                          <th class="col-ins">Instruction</th>
-                          <th class="col-arg">Argument</th>
-                          <th class="col-com">Comment</th>
-                        </tr>
-                      </thead>
-                      <tbody id="program-body">
-                        <tr>
-                          <td class="ln">1.</td>
-                          <td contenteditable="true"></td>
-                          <td>
-                            <select>
-                              <option></option>
-                              <option>add</option>
-                              <option>div</option>
-                              <option>halt</option>
-                              <option>jgtz</option>
-                              <option>jump</option>
-                              <option>jzero</option>
-                              <option>load</option>
-                              <option>mult</option>
-                              <option>read</option>
-                              <option>store</option>
-                              <option>sub</option>
-                              <option>write</option>
-                            </select>
-                          </td>
-                          <td contenteditable="true"></td>
-                          <td contenteditable="true"></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                <div class="kontrolki-programu">
-                  <button id="but" onclick="dodajWiersz()">+</button>
-                  <button id="bu" onclick="usunWiersz()">-</button>
-                </div>
+          <table id="btt">
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody id="memory-body"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel program">
+        <div class="naglowek-panelu">PROGRAM</div>
+        <div class="przewijalna-tabela">
+          <table class="tabela-programu">
+            <thead>
+              <tr>
+                <th class="col-ln">Ln</th>
+                <th class="col-lbl">Label</th>
+                <th class="col-ins">Instruction</th>
+                <th class="col-arg">Argument</th>
+                <th class="col-com">Comment</th>
+              </tr>
+            </thead>
+            <tbody id="program-body"></tbody>
+          </table>
+          <div class="kontrolki-programu">
+            <button id="but" type="button" onclick="dodajWiersz()">+</button>
+            <button id="bu" type="button" onclick="usunWiersz()">-</button>
+          </div>
         </div>
       </div>
     </div>
+    <div id="status" class="pasek-statusu">Gotowy. READ 1 czyta pierwszą komórkę INPUT do pierwszego wolnego rejestru od R1. LOAD wpisuje wartość do R0.</div>
+    <div id="animation-layer" class="warstwa-animacji" aria-hidden="true"></div>
   </div>
-      <script>
-        const INSTRUKCJE = ["", "add", "div", "halt", "jgtz", "jump", "jzero", "load", "mult", "read", "store", "sub", "write"],
-        LICZBA_REJESTROW = 16,
-        LIMIT_KROKOW = 10000;
-        KLUCZ_ZAPISU = "ram-machine-zapis",
-        CZAS_ANIMACJI = 1200,
-        $ = (selector, root = document) => root.querySelector(selector),
-        $$ = (selector, root = document) => [...root.querySelectorAll(selector)],
-        pustaPamiec = () => Array(LICZBA_REJESTROW).fill(null);
-        let pc = 0, inputHead = 0, output = [], memory = pustaPamiec(), running = false, animating = false;
-            const tbody = document.getElementById("program-body");
-            const rowCount = tbody.rows.length + 1;
-
-            const row = tbody.insertRow();
-
-            row.innerHTML = `
-              <td class="ln">${rowCount}.</td>
-              <td contenteditable="true"></td>
-              <td>
-                <select>
-                  <option></option>
-                  <option>add</option>
-                  <option>div</option>
-                  <option>halt</option>
-                  <option>jgtz</option>
-                  <option>jump</option>
-                  <option>jzero</option>
-                  <option>load</option>
-                  <option>mult</option>
-                  <option>read</option>
-                  <option>store</option>
-                  <option>sub</option>
-                  <option>write</option>
-                </select>
-              </td>
-              <td contenteditable="true"></td>
-              <td contenteditable="true"></td>
-            `;
-          
-
-          function usunWiersz() {
-            const tbody = document.getElementById("program-body");
-
-            if (tbody.rows.length > 1) {
-              tbody.deleteRow(tbody.rows.length - 1);
-            } else {
-              const row = tbody.rows[0];
-              row.cells[1].innerText = "";
-              row.cells[2].querySelector("select").value = "";
-              row.cells[3].innerText = "";
-              row.cells[4].innerText = "";
-            }
-          }
-
-                  document.addEventListener("click", function(e) {
-            const row = e.target.closest("tr");
-
-            if (!row) return;
- 
-            
-            if (row.classList.contains("aktywny")) {
-              row.classList.remove("aktywny");
-            } else {
-             
-              const rows = document.querySelectorAll("#program-body tr");
-              rows.forEach(r => r.classList.remove("aktywny"));
-
-              
-              row.classList.add("aktywny");
-            }
-          });
-          function przygotujZapis() {
-            return {
-              version: 1,
-              savedAt: newDate().toISOString(),
-              pc,
-              inputHead,
-              output,
-              memory,
-              input: pobierzTasmeWejsciowa(),
-              program: pobierzWierszeProgramu()
-            };
-          }
- HEAD
-
-          function utworzSelect(wartosc = ""){
-            const select = document.createElement("select");
-            INSTRUKCJE.forEach(instr => {
-                select.add(new Option(instr, instr));
-            });
-            select.value = wartosc;
-            return select;
-          }
-
-          function dodajWiersz(dane = {}) {
-            const row = $("#program-body").insertRow();
-            row.innerHTML = `
-            <td class="ln"></td>
-            <td contenteditable="true"></td>
-            <td></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-             `;
-            row.cells[1].innerText = dane.label || "";
-            row.cells[2].appendChild(utworzSelect(dane.instuction || ""));
-            row.cells[3].innerText = dane.argument || "";
-            row.cells[4].innerText = dane.comment || "";
-            odswiezNumerWierszy();
-            render();
-          }
-          function odswiezNumerWierszy(){
-            $$("#program-body tr").forEach((row, index) => {
-              row.cells[0].innerText = `${index + 1}.`;
-            });
-          }
-function inicjalizujPamiec() {
-  const tbody = $("#memory-body");
-  tbody.innerHTML = "";
-
-  for (let i = 0; i < LICZBA_REJESTROW; i++) {
-    const row = tbody.insertRow();
-
-    row.innerHTML = `<td>${i}</td><td contenteditable="true"></td>`;
-
-    row.cells[1].addEventListener("input", () => {
-      memory[i] = normalizujKomorkePamieci(row.cells[1].innerText);
-    });
-  }
-}
-
-function pobierzProgram() {
-  const rows = $$("#program-body tr");
-  const labels = new Map();
-
-  const program = rows.map((row, index) => {
-    const label = row.cells[1].innerText.trim();
-    const instruction = row.cells[2]
-      .querySelector("select")
-      .value
-      .trim()
-      .toLowerCase();
-
-    const argument = row.cells[3].innerText.trim();
-
-    if (label) labels.set(label, index);
-
-    return {
-      row,
-      label,
-      instruction,
-      argument,
-      line: index
-    };
-  }).filter(cmd => cmd.instruction);
-
-  const oldToNew = new Map();
-  let visibleLine = 0;
-
-  rows.forEach((row, index) => {
-    const instruction = row.cells[2]
-      .querySelector("select")
-      .value
-      .trim()
-      .toLowerCase();
-
-    if (instruction) {
-      oldToNew.set(index, visibleLine++);
+  <script>
+    const INSTRUKCJE = ["", "add", "div", "halt", "jgtz", "jump", "jzero", "load", "mult", "read", "store", "sub", "write"],
+      LICZBA_REJESTROW = 16,
+      LIMIT_KROKOW = 10000,
+      KLUCZ_ZAPISU = "ram-machine-zapis",
+      CZAS_ANIMACJI = 1200,
+      $ = (selector, root = document) => root.querySelector(selector),
+      $$ = (selector, root = document) => [...root.querySelectorAll(selector)],
+      pustaPamiec = () => Array(LICZBA_REJESTROW).fill(null);
+    let pc = 0, inputHead = 0, output = [], memory = pustaPamiec(), running = false, animating = false;
+    function utworzSelect(wartosc = "") {
+      const select = document.createElement("select");
+      INSTRUKCJE.forEach(instr => {
+        select.add(new Option(instr, instr));
+      });
+      select.value = wartosc;
+      return select;
     }
-  });
-
-  labels.forEach((oldIndex, label) => {
-    labels.set(label, oldToNew.get(oldIndex));
-  });
-  return { program, labels };
-}
-function normalizujLiczbe(value) {
-  const parsed = parseInt(
-    String(value).replace(",", ".").trim(),
-    10
-  );
-  return Number.isFinite(parsed) ? parsed : 0;
-}
-function normalizujKomorkePamieci(value) {
-  const text = String(value).trim();
-  return text === ""
-    ? null
-    : normalizujLiczbe(text);
-}
-function wartoscRejestru(index) {
-  if (memory[index] === null) {
-    throw new Error(`Rejestr R${index} jest pusty.`);
-  }
-  return memory[index];
-}
-function wymaganaWartoscRejestru(index, instrukcja) {
-  if (memory[index] === null) {
-    const dopisek =
-      index === 0
-        ? " Najpierw użyj LOAD."
-        : "";
-    throw new Error(
-      `${instrukcja.toUpperCase()} wymaga wartości w R${index}.${dopisek}`
-    );
-  }
-  return memory[index];
-}
-function wolnyRejestr() {
-  for (let i = 1; i < LICZBA_REJESTROW; i++) {
-    if (memory[i] === null) {
-      return i;
+    function dodajWiersz(dane = {}) {
+      const row = $("#program-body").insertRow();
+      row.innerHTML = `
+        <td class="ln"></td>
+        <td contenteditable="true"></td>
+        <td></td>
+        <td contenteditable="true"></td>
+        <td contenteditable="true"></td>
+      `;
+      row.cells[1].innerText = dane.label || "";
+      row.cells[2].appendChild(utworzSelect(dane.instruction || ""));
+      row.cells[3].innerText = dane.argument || "";
+      row.cells[4].innerText = dane.comment || "";
+      odswiezNumeryWierszy();
     }
-  }
-  throw new Error("Brak wolnego rejestru w pamięci.");
-          function usunWiersz() {
-            const tbody = $("#program-body");
-            if (tbody.rows.length > 1) {
-                tbody.deleteRow(tbody.rows.length - 1);
-            } else {
-                const row = tbody.rows[0];
-                row.cells[1].innerText = "";
-                row.cells[2].querySelector("select").value = "";
-                row.cells[3].innerText = "";
-                row.cells[4].innerText = "";
-            }
-            odswiezNumerWierszy();
-            render();
-          }
-
-          function odswiezNumerWierszy() {
-            $$("$program-body tr").forEach((row, index) => {
-                row.cells[0].innerText = `${index + 1}.`;
-            });
-          }
-
-          async function zapiszMaszyne() {
-       const zapis = przygotujZapis();
-       const tekstZapisu = JSON.stringify(zapis, null, 2);
-       zapiszWLokalnejPamieci(zapis);
-       if (window.showSaveFilePicker) {
-         try {
-           const handle = await window.showSaveFilePicker({
-             suggestedName: "ram-machine-zapis.json",
-              types: [
-                {
-                 description: "Plik zapisu RAM Machine",
-                  accept: { "application/json": [".json"] }
-               }
-              ]
-           });
-           const writable = await handle.createWritable();
-            await writable.write(tekstZapisu);
-            await writable.close();
-          ustawStatus("Zapisano dane maszyny we wskazanym miejscu.");
-           return;
-          } catch (error) {
-           if (error.name === "AbortError") {
-              ustawStatus("Anulowano wybĂłr miejsca zapisu.");
-            return;
-           }
-            ustawStatus("Nie udało się wybrał miejsca zapisu. Użyto zwykłego pobierania pliku.");
-         }
-       }
-        pobierzPlikZapisu(tekstZapisu);
-        ustawStatus("Zapisano dane maszyny do pliku pobranego przez przeglądarka.");
-     }
-      function pobierzPlikZapisu(tekstZapisu) {
-        const blob = new Blob([tekstZapisu], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-      link.href = url;
-        link.download = "ram-machine-zapis.json";
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-       setTimeout(() => URL.revokeObjectURL(url), 1000);
-     }
-      function wczytajMaszyne() {
-        const input = $("#plik-zapisu");
-        input.value = "";
-       input.click();
+    function usunWiersz() {
+      const tbody = $("#program-body");
+      if (tbody.rows.length > 1) {
+        tbody.deleteRow(tbody.rows.length - 1);
+      } else {
+        const row = tbody.rows[0];
+        row.cells[1].innerText = "";
+        row.cells[2].querySelector("select").value = "";
+        row.cells[3].innerText = "";
+        row.cells[4].innerText = "";
       }
-    function obsluzPlikZapisu(event) {
-        const file = event.target.files[0];
-      if (!file) {
-          wczytajMaszyneZPrzegladarki();
-         return;
-       }
-      const reader = new FileReader();
-      reader.onload = () => {
-          try {
-           const zapis = JSON.parse(reader.result);
-            zastosujZapis(zapis);
-           zapiszWLokalnejPamieci(zapis);
-           ustawStatus("Wczytano dane maszyny z pliku.");
-        } catch (error) {
-           ustawStatus(`Nie udało się wczytaÄ‡ pliku: ${error.message}`);
-         }
-       };
-       reader.onerror = () => {
-          ustawStatus("Nie udało się odczytać wybranego pliku.");
-      };
-       reader.readAsText(file);
+      odswiezNumeryWierszy();
+      render();
+    }
+    function odswiezNumeryWierszy() {
+      $$("#program-body tr").forEach((row, index) => {
+        row.cells[0].innerText = `${index + 1}.`;
+      });
+    }
+    function inicjalizujPamiec() {
+      const tbody = $("#memory-body");
+      tbody.innerHTML = "";
+      for (let i = 0; i < LICZBA_REJESTROW; i++) {
+        const row = tbody.insertRow();
+        row.innerHTML = `<td>${i}</td><td contenteditable="true"></td>`;
+        row.cells[1].addEventListener("input", () => {
+          memory[i] = normalizujKomorkePamieci(row.cells[1].innerText);
+        });
       }
-      function wczytajMaszyneZPrzegladarki() {
-        const raw = pobierzZLokalnejPamieci();
-        if (!raw) {
-         ustawStatus("Brak zapisanych danych maszyny.");
-          return;
-       }
-        try {
-         const zapis = JSON.parse(raw);
-         zastosujZapis(zapis);
-          ustawStatus("Wczytano zapisane dane maszyny.");
-        } catch (error) {
-         ustawStatus(`Nie udało się wczytać zapisu: ${error.message}`);
-        }
-     }
-      function zapiszWLokalnejPamieci(zapis) {
-        try {
-          localStorage.setItem(KLUCZ_ZAPISU, JSON.stringify(zapis));
-       } catch (error) {
-        console.warn("Nie udało się zapisać w localStorage.", error);
-       }
     }
-    function pobierzZLokalnejPamieci() {
-        try {
-        return localStorage.getItem(KLUCZ_ZAPISU);
-        } catch (error) {
-          console.warn("Nie udaLo się odczytać z localStorage.", error);
-         return null;
-       }
+    function pobierzProgram() {
+      const rows = $$("#program-body tr");
+      const labels = new Map();
+      const program = rows.map((row, index) => {
+        const label = row.cells[1].innerText.trim();
+        const instruction = row.cells[2].querySelector("select").value.trim().toLowerCase();
+        const argument = row.cells[3].innerText.trim();
+        if (label) labels.set(label, index);
+        return { row, label, instruction, argument, line: index };
+      }).filter(cmd => cmd.instruction);
+      const oldToNew = new Map();
+      let visibleLine = 0;
+      rows.forEach((row, index) => {
+        const instruction = row.cells[2].querySelector("select").value.trim().toLowerCase();
+        if (instruction) oldToNew.set(index, visibleLine++);
+      });
+      labels.forEach((oldIndex, label) => {
+        labels.set(label, oldToNew.get(oldIndex));
+      });
+      return { program, labels };
     }
-    function wyczyscProgram() {
-            const tbody = $("#program-body");
-            tbody.innerHTML ="";
-            dodajWiersz();
+    function normalizujLiczbe(value) {
+      const parsed = parseInt(String(value).replace(",", ".").trim(), 10);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+    function normalizujKomorkePamieci(value) {
+      const text = String(value).trim();
+      return text === "" ? null : normalizujLiczbe(text);
+    }
+    function wartoscRejestru(index) {
+      if (memory[index] === null) {
+        throw new Error(`Rejestr R${index} jest pusty.`);
+      }
+      return memory[index];
+    }
+    function wymaganaWartoscRejestru(index, instrukcja) {
+      if (memory[index] === null) {
+        const dopisek = index === 0 ? " Najpierw użyj LOAD." : "";
+        throw new Error(`${instrukcja.toUpperCase()} wymaga wartości w R${index}.${dopisek}`);
+      }
+      return memory[index];
+    }
+    function wolnyRejestr() {
+      for (let i = 1; i < LICZBA_REJESTROW; i++) {
+        if (memory[i] === null) return i;
+      }
+      throw new Error("Brak wolnego rejestru w pamięci.");
+    }
+    function daneWejsciowe() {
+      return $$("#input-cells .komorka").map(cell => cell.innerText.trim());
+    }
+    function wartoscZTasmy(argument) {
+      if (!argument) throw new Error("READ wymaga numeru komórki taśmy wejściowej.");
+      const index = normalizujLiczbe(argument) - 1;
+      if (index < 0) throw new Error("Numer komórki INPUT musi zaczynać się od 1.");
+      const input = daneWejsciowe();
+      if (index >= input.length || input[index] === "") {
+        throw new Error(`Komórka INPUT ${index + 1} jest pusta.`);
+      }
+      return normalizujLiczbe(input[index]);
+    }
+    function adres(argument) {
+      if (!argument) throw new Error("Brak argumentu adresowego.");
+      if (argument.startsWith("=")) throw new Error("Stała nie może być adresem docelowym.");
+      if (argument.startsWith("*")) {
+        const pointer = normalizujLiczbe(argument.slice(1));
+        sprawdzAdres(pointer);
+        const target = memory[pointer];
+        if (target === null) throw new Error(`Rejestr R${pointer} nie wskazuje adresu.`);
+        sprawdzAdres(target);
+        return target;
+      }
+      const target = normalizujLiczbe(argument);
+      sprawdzAdres(target);
+      return target;
+    }
+    function wartosc(argument) {
+      if (!argument) throw new Error("Brak argumentu.");
+      if (argument.startsWith("=")) return normalizujLiczbe(argument.slice(1));
+      return wartoscRejestru(adres(argument));
+    }
+    function sprawdzAdres(value) {
+      if (!Number.isInteger(value) || value < 0 || value >= LICZBA_REJESTROW) {
+        throw new Error(`Niepoprawny adres rejestru: ${value}.`);
+      }
+    }
+    function celSkoku(argument, labels) {
+      if (!argument) throw new Error("Brak celu skoku.");
+      if (labels.has(argument)) return labels.get(argument);
+      const line = normalizujLiczbe(argument);
+      if (line < 1) throw new Error(`Niepoprawny numer linii: ${argument}.`);
+      return line - 1;
+    }
+    async function wykonajArytmetyke(cmd, znak, dzialanie) {
+      const operand = wartosc(cmd.argument);
+      if (cmd.instruction === "div" && operand === 0) throw new Error("Dzielenie przez zero.");
+      await animujOperacje(cmd, znak, operand);
+      memory[0] = dzialanie(wymaganaWartoscRejestru(0, cmd.instruction), operand);
+    }
+    async function wykonajKrok() {
+      if (animating) return false;
+      if (!running) running = true;
+      const { program, labels } = pobierzProgram();
+      if (pc < 0 || pc >= program.length) {
+        running = false;
+        ustawStatus("Program zakończony: PC poza zakresem programu.");
+        render(program);
+        return false;
+      }
+      const cmd = program[pc];
+      let nextPc = pc + 1;
+      try {
+        switch (cmd.instruction) {
+          case "read": {
+            const target = wolnyRejestr();
+            const value = wartoscZTasmy(cmd.argument);
+            await animujPrzeplyw({
+              from: komorkaWejscia(normalizujLiczbe(cmd.argument) - 1),
+              to: komorkaPamieci(target),
+              value,
+              label: `READ -> R${target}`
+            });
+            memory[target] = value;
+            break;
           }
-          function komorkaPameci(index){
-            const row = $$("#memory-body tr")[index];
-            if (!row) return null;
-            row.scrollIntoView({block: "nearest"});
-            return row.cells[1];
+          case "write": {
+            const sourceArgument = cmd.argument || "0";
+            const value = wartosc(sourceArgument);
+            await animujPrzeplyw({
+              from: elementDlaArgumentu(sourceArgument),
+              to: wolnaKomorkaWyjscia(),
+              value,
+              label: `WRITE ${value}`
+            });
+            output.push(value);
+            break;
           }
-          function komorkaWejscia(index){
-            return $$("#input-cells .komorka")[index] || null;
-          }
-          function wolnaKomorkaWyjscia(){
-            return $("#output-cells .komorka.head") || $("#output-cells .komorka:last-child");
-          }
-          function elementDlaArgumentu(argument) {
-            if (!argument) return komorkaPamieci(0);
-            if (argument.startsWith("=")) return $("#argument-view");
-            return komorkaPamieci(adres(argument));
-          }
-          async function animujOperacje(cmd,znak, operand){
-            const accumulator = wymaganaWartoscRejestru(0,cmd.instruction);
+          case "load":
             await animujPrzeplyw({
               from: elementDlaArgumentu(cmd.argument),
-              to: komorkaPameci(0),
-              value: operand,
-              label: `${accumulator} ${znak} ${operand}`
+              to: komorkaPamieci(0),
+              value: wartosc(cmd.argument),
+              label: "LOAD -> R0"
             });
+            memory[0] = wartosc(cmd.argument);
+            break;
+          case "store":
+            {
+              const target = adres(cmd.argument);
+              const value = wymaganaWartoscRejestru(0, cmd.instruction);
+              await animujPrzeplyw({ from: komorkaPamieci(0), to: komorkaPamieci(target), value, label: `STORE -> R${target}` });
+              memory[target] = value;
+            }
+            break;
+          case "add":
+            await wykonajArytmetyke(cmd, "+", (a, b) => a + b);
+            break;
+          case "sub":
+            await wykonajArytmetyke(cmd, "-", (a, b) => a - b);
+            break;
+          case "mult":
+            await animujOperacje(cmd, "×", wartosc(cmd.argument));
+            memory[0] = wymaganaWartoscRejestru(0, cmd.instruction) * wartosc(cmd.argument);
+            break;
+          case "div": {
+            const divisor = wartosc(cmd.argument);
+            if (divisor === 0) throw new Error("Dzielenie przez zero.");
+            await animujOperacje(cmd, "÷", divisor);
+            memory[0] = Math.trunc(wymaganaWartoscRejestru(0, cmd.instruction) / divisor);
+            break;
           }
-           async function animujPrzeplyw({ from, to, value, label }) {
+          case "jump":
+            nextPc = celSkoku(cmd.argument, labels);
+            break;
+          case "jzero":
+            if (wymaganaWartoscRejestru(0, cmd.instruction) === 0) nextPc = celSkoku(cmd.argument, labels);
+            break;
+          case "jgtz":
+            if (wymaganaWartoscRejestru(0, cmd.instruction) > 0) nextPc = celSkoku(cmd.argument, labels);
+            break;
+          case "halt":
+            running = false;
+            pc = nextPc;
+            ustawStatus("Program zatrzymany instrukcją HALT.");
+            render(program);
+            return false;
+          default:
+            throw new Error(`Nieznana instrukcja: ${cmd.instruction}.`);
+        }
+        pc = nextPc;
+        ustawStatus(`Wykonano: ${cmd.instruction.toUpperCase()} ${cmd.argument}`);
+        render(program);
+        return true;
+      } catch (error) {
+        running = false;
+        ustawStatus(`Błąd w linii ${cmd.line + 1}: ${error.message}`);
+        render(program);
+        return false;
+      }
+    }
+    async function uruchomProgram() {
+      if (animating) return;
+      running = true;
+      let steps = 0;
+      while (running && steps < LIMIT_KROKOW && (await wykonajKrok())) {
+        steps++;
+      }
+      if (steps >= LIMIT_KROKOW) {
+        running = false;
+        ustawStatus(`Przerwano po ${LIMIT_KROKOW} krokach. Możliwa pętla nieskończona.`);
+      }
+      render();
+    }
+    function zatrzymajProgram() {
+      running = false;
+      ustawStatus("Program zatrzymany przez użytkownika.");
+      render();
+    }
+    function resetujGlowice() {
+      inputHead = 0;
+      output = [];
+      render();
+    }
+    function resetujMaszyne() {
+      pc = 0;
+      inputHead = 0;
+      output = [];
+      memory = Array(LICZBA_REJESTROW).fill(null);
+      running = false;
+      ustawStatus("Maszyna zresetowana.");
+      render();
+    }
+    function pobierzWierszeProgramu() {
+      return $$("#program-body tr").map(row => ({
+        label: row.cells[1].innerText.trim(),
+        instruction: row.cells[2].querySelector("select").value.trim(),
+        argument: row.cells[3].innerText.trim(),
+        comment: row.cells[4].innerText.trim()
+      }));
+    }
+    function pobierzTasmeWejsciowa() {
+      return $$("#input-cells .komorka").map(cell => cell.innerText.trim());
+    }
+    function ustawTasmeWejsciowa(values = []) {
+      const cells = $$("#input-cells .komorka");
+      cells.forEach((cell, index) => {
+        cell.innerText = values[index] || "";
+      });
+    }
+    function przygotujZapis() {
+      return {
+        version: 1,
+        savedAt: new Date().toISOString(),
+        pc,
+        inputHead,
+        output,
+        memory,
+        input: pobierzTasmeWejsciowa(),
+        program: pobierzWierszeProgramu()
+      };
+    }
+    async function zapiszMaszyne() {
+      const zapis = przygotujZapis();
+      const tekstZapisu = JSON.stringify(zapis, null, 2);
+      zapiszWLokalnejPamieci(zapis);
+      if (window.showSaveFilePicker) {
+        try {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: "ram-machine-zapis.json",
+            types: [
+              {
+                description: "Plik zapisu RAM Machine",
+                accept: { "application/json": [".json"] }
+              }
+            ]
+          });
+          const writable = await handle.createWritable();
+          await writable.write(tekstZapisu);
+          await writable.close();
+          ustawStatus("Zapisano dane maszyny we wskazanym miejscu.");
+          return;
+        } catch (error) {
+          if (error.name === "AbortError") {
+            ustawStatus("Anulowano wybór miejsca zapisu.");
+            return;
+          }
+          ustawStatus("Nie udało się wybrać miejsca zapisu. Użyto zwykłego pobierania pliku.");
+        }
+      }
+      pobierzPlikZapisu(tekstZapisu);
+      ustawStatus("Zapisano dane maszyny do pliku pobranego przez przeglądarkę.");
+    }
+    function pobierzPlikZapisu(tekstZapisu) {
+      const blob = new Blob([tekstZapisu], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "ram-machine-zapis.json";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+    function wczytajMaszyne() {
+      const input = $("#plik-zapisu");
+      input.value = "";
+      input.click();
+    }
+    function obsluzPlikZapisu(event) {
+      const file = event.target.files[0];
+      if (!file) {
+        wczytajMaszyneZPrzegladarki();
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const zapis = JSON.parse(reader.result);
+          zastosujZapis(zapis);
+          zapiszWLokalnejPamieci(zapis);
+          ustawStatus("Wczytano dane maszyny z pliku.");
+        } catch (error) {
+          ustawStatus(`Nie udało się wczytać pliku: ${error.message}`);
+        }
+      };
+      reader.onerror = () => {
+        ustawStatus("Nie udało się odczytać wybranego pliku.");
+      };
+      reader.readAsText(file);
+    }
+    function wczytajMaszyneZPrzegladarki() {
+      const raw = pobierzZLokalnejPamieci();
+      if (!raw) {
+        ustawStatus("Brak zapisanych danych maszyny.");
+        return;
+      }
+      try {
+        const zapis = JSON.parse(raw);
+        zastosujZapis(zapis);
+        ustawStatus("Wczytano zapisane dane maszyny.");
+      } catch (error) {
+        ustawStatus(`Nie udało się wczytać zapisu: ${error.message}`);
+      }
+    }
+    function zapiszWLokalnejPamieci(zapis) {
+      try {
+        localStorage.setItem(KLUCZ_ZAPISU, JSON.stringify(zapis));
+      } catch (error) {
+        console.warn("Nie udało się zapisać w localStorage.", error);
+      }
+    }
+    function pobierzZLokalnejPamieci() {
+      try {
+        return localStorage.getItem(KLUCZ_ZAPISU);
+      } catch (error) {
+        console.warn("Nie udało się odczytać z localStorage.", error);
+        return null;
+      }
+    }
+    function zastosujZapis(zapis) {
+      const tbody = $("#program-body");
+      tbody.innerHTML = "";
+      const program = Array.isArray(zapis.program) && zapis.program.length ? zapis.program : [{}];
+      program.forEach(dodajWiersz);
+      memory = Array(LICZBA_REJESTROW).fill(null);
+      if (Array.isArray(zapis.memory)) {
+        zapis.memory.slice(0, LICZBA_REJESTROW).forEach((value, index) => {
+          memory[index] = value === null || value === "" ? null : normalizujLiczbe(value);
+        });
+      }
+      pc = Math.max(0, normalizujLiczbe(zapis.pc));
+      inputHead = Math.max(0, normalizujLiczbe(zapis.inputHead));
+      output = Array.isArray(zapis.output) ? zapis.output.map(normalizujLiczbe) : [];
+      running = false;
+      ustawTasmeWejsciowa(Array.isArray(zapis.input) ? zapis.input : []);
+      render();
+    }
+    function wyczyscProgram() {
+      const tbody = $("#program-body");
+      tbody.innerHTML = "";
+      dodajWiersz();
+    }
+    function komorkaPamieci(index) {
+      const row = $$("#memory-body tr")[index];
+      if (!row) return null;
+      row.scrollIntoView({ block: "nearest" });
+      return row.cells[1];
+    }
+    function komorkaWejscia(index) {
+      return $$("#input-cells .komorka")[index] || null;
+    }
+    function wolnaKomorkaWyjscia() {
+      return $("#output-cells .komorka.head") || $("#output-cells .komorka:last-child");
+    }
+    function elementDlaArgumentu(argument) {
+      if (!argument) return komorkaPamieci(0);
+      if (argument.startsWith("=")) return $("#argument-view");
+      return komorkaPamieci(adres(argument));
+    }
+    async function animujOperacje(cmd, znak, operand) {
+      const accumulator = wymaganaWartoscRejestru(0, cmd.instruction);
+      await animujPrzeplyw({
+        from: elementDlaArgumentu(cmd.argument),
+        to: komorkaPamieci(0),
+        value: operand,
+        label: `${accumulator} ${znak} ${operand}`
+      });
+    }
+    async function animujPrzeplyw({ from, to, value, label }) {
       if (!from || !to) return;
       animating = true;
       const layer = $("#animation-layer");
@@ -546,297 +625,28 @@ function wolnyRejestr() {
       to.classList.remove("animacja-cel");
       animating = false;
     }
-
-
-    async function wykonajKrok() {
-  if (animating) return false;
-  if (!running) running = true;
-
-  const { program, labels } = pobierzProgram();
-
-  if (pc < 0 || pc >= program.length) {
-    running = false;
-    ustawStatus("Program zakończony: PC poza zakresem programu.");
-    render(program);
-    return false;
-  }
-
-  const cmd = program[pc];
-  let nextPc = pc + 1;
-
-  try {
-    switch (cmd.instruction) {
-      case "read": {
-        const target = wolnyRejestr();
-        const value = wartoscZTasmy(cmd.argument);
-
-        await animujPrzeplyw({
-          from: komorkaWejscia(normalizujLiczbe(cmd.argument) - 1),
-          to: komorkaPamieci(target),
-          value,
-          label: `READ -> R${target}`
-        });
-
-        memory[target] = value;
-        break;
-      }
-
-      case "write": {
-        const sourceArgument = cmd.argument || "0";
-        const value = wartosc(sourceArgument);
-
-        await animujPrzeplyw({
-          from: elementDlaArgumentu(sourceArgument),
-          to: wolnaKomorkaWyjscia(),
-          value,
-          label: `WRITE ${value}`
-        });
-
-        output.push(value);
-        break;
-      }
-
-      case "load":
-        await animujPrzeplyw({
-          from: elementDlaArgumentu(cmd.argument),
-          to: komorkaPamieci(0),
-          value: wartosc(cmd.argument),
-          label: "LOAD -> R0"
-        });
-
-        memory[0] = wartosc(cmd.argument);
-        break;
-
-      case "store": {
-        const target = adres(cmd.argument);
-        const value = wymaganaWartoscRejestru(0, cmd.instruction);
-
-        await animujPrzeplyw({
-          from: komorkaPamieci(0),
-          to: komorkaPamieci(target),
-          value,
-          label: `STORE -> R${target}`
-        });
-
-        memory[target] = value;
-      }
-      break;
-
-      case "add":
-        await wykonajArytmetyke(cmd, "+", (a, b) => a + b);
-        break;
-
-      case "sub":
-        await wykonajArytmetyke(cmd, "-", (a, b) => a - b);
-        break;
-
-      case "mult":
-        await animujOperacje(cmd, "×", wartosc(cmd.argument));
-        memory[0] =
-          wymaganaWartoscRejestru(0, cmd.instruction) *
-          wartosc(cmd.argument);
-        break;
-
-      case "div": {
-        const divisor = wartosc(cmd.argument);
-
-        if (divisor === 0) {
-          throw new Error("Dzielenie przez zero.");
-        }
-
-        await animujOperacje(cmd, "÷", divisor);
-
-        memory[0] = Math.trunc(
-          wymaganaWartoscRejestru(0, cmd.instruction) / divisor
-        );
-
-        break;
-      }
-
-      case "jump":
-        nextPc = celSkoku(cmd.argument, labels);
-        break;
-
-      case "jzero":
-        if (wymaganaWartoscRejestru(0, cmd.instruction) === 0) {
-          nextPc = celSkoku(cmd.argument, labels);
-        }
-        break;
-
-      case "jgtz":
-        if (wymaganaWartoscRejestru(0, cmd.instruction) > 0) {
-          nextPc = celSkoku(cmd.argument, labels);
-        }
-        break;
-
-      case "halt":
-        running = false;
-        pc = nextPc;
-
-        ustawStatus("Program zatrzymany instrukcją HALT.");
-        render(program);
-
-        return false;
-
-      default:
-        throw new Error(`Nieznana instrukcja: ${cmd.instruction}.`);
+    function render(program = pobierzProgram().program) {
+      $$("#program-body tr").forEach(row => row.classList.remove("current"));
+      if (program[pc]) program[pc].row.classList.add("current");
+      const current = program[pc];
+      $("#pc-view").value = current ? String(current.line + 1) : String(pc + 1);
+      $("#instruction-view").value = current ? current.instruction.toUpperCase() : "";
+      $("#argument-view").value = current ? current.argument : "";
+      const rows = $$("#memory-body tr");
+      memory.forEach((value, index) => {
+        rows[index].cells[1].innerText = value === null ? "" : value;
+        rows[index].classList.toggle("accumulator", index === 0);
+      });
+      renderInputTape();
+      renderTape("output-cells", output, output.length, "output-head");
     }
-
-    pc = nextPc;
-
-    ustawStatus(
-      `Wykonano: ${cmd.instruction.toUpperCase()} ${cmd.argument}`
-    );
-
-    render(program);
-
-    return true;
-
-  } catch (error) {
-    running = false;
-
-    ustawStatus(
-      `Błąd w linii ${cmd.line + 1}: ${error.message}`
-    );
-
-    render(program);
-
-    return false;
-  }
-}
-
-async function uruchomProgram() {
-  if (animating) return;
-
-  running = true;
-  let steps = 0;
-
-  while (
-    running &&
-    steps < LIMIT_KROKOW &&
-    (await wykonajKrok())
-  ) {
-    steps++;
-  }
-
-  if (steps >= LIMIT_KROKOW) {
-    running = false;
-
-    ustawStatus(
-      `Przerwano po ${LIMIT_KROKOW} krokach. Możliwa pętla nieskończona.`
-    );
-  }
-
-  render();
-}
-
-function zatrzymajProgram() {
-  running = false;
-
-  ustawStatus("Program zatrzymany przez użytkownika.");
-
-  render();
-}
-
-function resetujGlowice() {
-  inputHead = 0;
-  output = [];
-
-  render();
-}
-
-function resetujMaszyne() {
-  pc = 0;
-  inputHead = 0;
-  output = [];
-
-  memory = Array(LICZBA_REJESTROW).fill(null);
-
-  running = false;
-
-  ustawStatus("Maszyna zresetowana.");
-
-  render();
-}
-
-function pobierzWierszeProgramu() {
-  return $$("#program-body tr").map(row => ({
-    label: row.cells[1].innerText.trim(),
-    instruction: row.cells[2].querySelector("select").value.trim(),
-    argument: row.cells[3].innerText.trim(),
-    comment: row.cells[4].innerText.trim()
-  }));
-}
-
-function pobierzTasmeWejsciowa() {
-  return $$("#input-cells .komorka").map(cell =>
-    cell.innerText.trim()
-  );
-}
-
-function ustawTasmeWejsciowa(values = []) {
-  const cells = $$("#input-cells .komorka");
-
-  cells.forEach((cell, index) => {
-    cell.innerText = values[index] || "";
-  });
-}
-
-function render(program = pobierzProgram().program) {
-  $$("#program-body tr").forEach(row =>
-    row.classList.remove("current")
-  );
-
-  if (program[pc]) {
-    program[pc].row.classList.add("current");
-  }
-
-  const current = program[pc];
-
-  $("#pc-view").value = current
-    ? String(current.line + 1)
-    : String(pc + 1);
-
-  $("#instruction-view").value = current
-    ? current.instruction.toUpperCase()
-    : "";
-
-  $("#argument-view").value = current
-    ? current.argument
-    : "";
-
-  const rows = $$("#memory-body tr");
-
-  memory.forEach((value, index) => {
-    rows[index].cells[1].innerText =
-      value === null ? "" : value;
-
-    rows[index].classList.toggle(
-      "accumulator",
-      index === 0
-    );
-  });
-
-  renderInputTape();
-
-  renderTape(
-    "output-cells",
-    output,
-    output.length,
-    "output-head"
-  );
-}
-
-function inicjalizujTasmeWejsciowa() {
-  const container = $("#input-cells");
-
-  container.innerHTML = "";
-
-  for (let i = 0; i < 7; i++) {
-    const cell = document.createElement("div");
-
-    cell.className = "komorka";
-    cell.contentEditable = "true";
+    function inicjalizujTasmeWejsciowa() {
+      const container = $("#input-cells");
+      container.innerHTML = "";
+      for (let i = 0; i < 7; i++) {
+        const cell = document.createElement("div");
+        cell.className = "komorka";
+        cell.contentEditable = "true";
         cell.dataset.index = String(i);
         cell.addEventListener("input", resetujGlowice);
         container.appendChild(cell);
@@ -880,6 +690,6 @@ function inicjalizujTasmeWejsciowa() {
     inicjalizujTasmeWejsciowa();
     wyczyscProgram();
     resetujMaszyne();
-      </script>
+  </script>
 </body>
 </html>
